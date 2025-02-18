@@ -1,0 +1,22 @@
+apiVersion: apps/v1 # 필수 표준 apps/v1
+kind: Deployment
+metadata:
+  name: group1-team8-app
+  namespace: group1-team8
+  labels:
+    app: group1-team8-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: group1-team8-app
+  template:
+    metadata:
+      labels:
+        app: group1-team8-app
+    spec:
+      containers:
+      - name: group1-team8-app
+        image: k8s-vga-worker1:5000/group1-team8-app:latest
+        ports:
+        - containerPort: 8080
