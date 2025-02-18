@@ -16,7 +16,7 @@ pipeline {
         stage('Build with Gradle') {
             steps {
                 script {
-                    sh 'mvn clean package -DskipTests'
+                    sh 'cd demo && mvn clean package -DskipTests'
                 }
             }
         }
