@@ -5,9 +5,8 @@ pipeline {
         IMAGE_NAME = "group1-team8-app"
         IMAGE_TAG = "latest"
         NAMESPACE = "group1-team8"
-        JAVA_HOME = '/home/eva/user/yoon/edu/jdk-21.0.5'  // 원하는 Java 경로로 변경
-        PATH = "$JAVA_HOME/bin:$PATH"     // PATH에 JAVA_HOME/bin 추가
-    
+        JAVA_HOME = "/home/eva/user/yoon/edu/jdk-21.0.5"
+        PATH = "$JAVA_HOME/bin:$PATH"
     }
     stages {
         stage('Checkout') {
