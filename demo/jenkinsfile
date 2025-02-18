@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+    environment {
+        REGISTRY = "k8s-vga-worker1:5000"
+        IMAGE_NAME = "group1-team8-app"
+        IMAGE_TAG = "latest"
+        NAMESPACE = "group1-team8"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                // Git 저장소에서 소스 코드 체크아웃 (branch 지정 : 본인 repository의 branch 이름으로 설정)
+                git branch: 'main', url: 'https://github.com/seo-dk/demo.git'
+            }
+        }
+        stage('Build with Gradle') {
+            steps {
+                script {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Docker 이미지를 Registry Server에 푸시
+                    sh "docker push ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+        stage('Deploy and Service to Kubernetes') {
+            steps {
+                script {
+                    // Kubernetes Deployment and Service 생성 및 적용 (1일차 교육때 사용한 deploy & service 생성 yaml 파일 등록하여 사용)
+                    sh "kubectl apply -f /home/eva/user/group1/team8/group1-team8-app-deploy.yaml -n ${NAMESPACE}"
+                }
+            }
+        }
+    }
+}
