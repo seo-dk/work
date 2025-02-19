@@ -5,8 +5,8 @@ pipeline {
         IMAGE_NAME = "group1-team8-app"
         IMAGE_TAG = "latest"
         NAMESPACE = "group1-team8"
-        JAVA_HOME = "/jdk-21.0.5"
-        PATH = "${JAVA_HOME}/bin:${PATH}"
+        //JAVA_HOME = "/jdk-21.0.5"
+        //PATH = "${JAVA_HOME}/bin:${PATH}"
     }
     stages {
         stage('Checkout') {
