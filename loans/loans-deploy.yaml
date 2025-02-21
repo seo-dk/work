@@ -16,7 +16,7 @@ spec:
         app: team8-loans
     spec:
       containers:
-      - name: team8-cards
+      - name: team8-loans
         image: k8s-vga-worker1:5000/team8-loans:latest
         ports:
         - containerPort: 9010
