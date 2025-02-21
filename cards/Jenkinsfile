@@ -38,18 +38,19 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
+                    sh "kubectl delete -f ./cards/cards-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./cards/cards-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./cards/cards-service.yaml -n ${NAMESPACE}"
                 }
             }
         }
-        stage('Deployment Image to Update') {
-            steps {
-                script {
-                    sh "kubectl set image deployment/team8-cards team8-cards=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
-                    sh "kubectl rollout restart deployment team8-cards -n ${NAMESPACE}"
-                }
-            }
-        }
+        // stage('Deployment Image to Update') {
+        //     steps {
+        //         script {
+        //             sh "kubectl set image deployment/team8-cards team8-cards=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
+        //             sh "kubectl rollout restart deployment team8-cards -n ${NAMESPACE}"
+        //         }
+        //     }
+        // }
     }
 }
