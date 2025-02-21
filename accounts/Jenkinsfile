@@ -38,18 +38,19 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
+                    sh "kubectl delete -f ./accounts/accounts-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./accounts/accounts-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./accounts/accounts-service.yaml -n ${NAMESPACE}"
                 }
             }
         }
-        stage('Deployment Image to Update') {
-            steps {
-                script {
-                    sh "kubectl set image deployment/team8-accounts team8-accounts=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
-                    sh "kubectl rollout restart deployment team8-accounts -n ${NAMESPACE}"
-                }
-            }
-        }
+        // stage('Deployment Image to Update') {
+        //     steps {
+        //         script {
+        //             sh "kubectl set image deployment/team8-accounts team8-accounts=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
+        //             sh "kubectl rollout restart deployment team8-accounts -n ${NAMESPACE}"
+        //         }
+        //     }
+        // }
     }
 }
