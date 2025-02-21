@@ -96,6 +96,13 @@
             <version>2.8.1</version>
         </dependency>
         <!-- //swagger dependency-->
+
+        <!-- Spring WebFlux Starter (WebClient 포함) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        
     </dependencies>
 
     <dependencyManagement>

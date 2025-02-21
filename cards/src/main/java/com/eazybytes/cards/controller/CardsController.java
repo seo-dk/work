@@ -4,6 +4,7 @@ import com.eazybytes.cards.constants.CardsConstants;
 import com.eazybytes.cards.dto.CardsDto;
 import com.eazybytes.cards.dto.ErrorResponseDto;
 import com.eazybytes.cards.dto.ResponseDto;
+import com.eazybytes.cards.dto.ServerInfoDto;
 import com.eazybytes.cards.service.ICardsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,6 +15,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -161,4 +166,33 @@ public class CardsController {
         }
     }
 
+    @Operation(
+            summary = "Server Info REST API",
+            description = "REST API to fetch Connection details"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
+    @GetMapping("/server")
+    public ResponseEntity<ServerInfoDto> fetchServerDetails() throws UnknownHostException {
+
+        InetAddress localHost = InetAddress.getLocalHost();
+        
+        String hostname = localHost.getHostName();
+        String ip = localHost.getHostAddress();
+        int port = 9000; 
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ServerInfoDto(hostname,ip,port));
+    }
+    
 }

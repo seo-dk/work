@@ -4,6 +4,7 @@ import com.eazybytes.accounts.constants.AccountsConstants;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.dto.ErrorResponseDto;
 import com.eazybytes.accounts.dto.ResponseDto;
+import com.eazybytes.accounts.dto.ServerInfoDto;
 import com.eazybytes.accounts.service.IAccountsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,11 +15,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * @author Eazy Bytes
@@ -160,5 +166,35 @@ public class AccountsController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(AccountsConstants.STATUS_417, AccountsConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    @Operation(
+            summary = "Server Info REST API",
+            description = "REST API to fetch Connection details"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    })
+    
+    @GetMapping("/server")
+    public ResponseEntity<ServerInfoDto> fetchServerDetails() throws UnknownHostException {
+
+        InetAddress localHost = InetAddress.getLocalHost();
+        
+        String hostname = localHost.getHostName();
+        String ip = localHost.getHostAddress();
+        int port = 9000; 
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ServerInfoDto(hostname,ip,port));
     }
 }
