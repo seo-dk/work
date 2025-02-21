@@ -164,4 +164,16 @@ public class LoansController {
         }
     }
 
+    @GetMapping("/server")
+    public ResponseEntity<ServerInfoDto> fetchServerDetails() throws UnknownHostException {
+
+        InetAddress localHost = InetAddress.getLocalHost();
+        
+        String hostname = localHost.getHostName();
+        String ip = localHost.getHostAddress();
+        int port = 9010; 
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ServerInfoDto(hostname,ip,port));
+    }
+
 }

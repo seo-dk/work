@@ -193,7 +193,7 @@ public class AccountsController {
         
         String hostname = localHost.getHostName();
         String ip = localHost.getHostAddress();
-        int port = 9000; 
+        int port = 9020; 
 
         return ResponseEntity.status(HttpStatus.OK).body(new ServerInfoDto(hostname,ip,port));
     }
