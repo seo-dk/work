@@ -1,7 +1,0 @@
-{
-<<<<<<< HEAD
-    "java.compile.nullAnalysis.mode": "disabled"
-=======
-    "java.compile.nullAnalysis.mode": "automatic"
->>>>>>> 8037ed30697b7020c83169ca533a4c16957494b4
-}
