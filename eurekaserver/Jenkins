@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         REGISTRY = "k8s-vga-worker1:5000"
-        IMAGE_NAME = "group1-team8-app"
+        IMAGE_NAME = "team8-eureka"
         IMAGE_TAG = "latest"
         NAMESPACE = "group1-team8"
         JAVA_HOME = "/tmp/jdk-21.0.5"
@@ -17,21 +17,20 @@ pipeline {
         stage('Build with Gradle') {
             steps {
                 script {
-                    sh 'cd demo && mvn clean package -DskipTests'
+                    sh 'cd eurekaserver && mvn clean package -DskipTests'
                 }
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ./demo"
+                    sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ./eurekaserver"
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 script {
-                    // Docker 이미지를 Registry Server에 푸시
                     sh "docker push ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
                 }
             }
@@ -39,9 +38,15 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
-                    // Kubernetes Deployment and Service 생성 및 적용 (1일차 교육때 사용한 deploy & service 생성 yaml 파일 등록하여 사용)
-                    sh "kubectl apply -f ./demo/group1-team8-app-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./demo/group1-team8-app-service.yaml -n ${NAMESPACE}"
+                    sh "kubectl apply -f ./eurekaserver/eureka-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl apply -f ./eurekaserver/eureka-service.yaml -n ${NAMESPACE}"
+                }
+            }
+        }
+        stage('Deployment Image to Update') {
+            steps {
+                script {
+                    sh "kubectl set image deployment/team8-eureka team8-eureka=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
                 }
             }
         }
