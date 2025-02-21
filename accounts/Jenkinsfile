@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+    environment {
+        REGISTRY = "k8s-vga-worker1:5000"
+        IMAGE_NAME = "team8-accounts"
+        IMAGE_TAG = "latest"
+        NAMESPACE = "group1-team8"
+        JAVA_HOME = "/tmp/jdk-21.0.5"
+        PATH = "${JAVA_HOME}/bin:${PATH}"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/seo-dk/work.git'
+            }
+        }
+        stage('Build with Gradle') {
+            steps {
+                script {
+                    sh 'cd accounts && mvn clean package -DskipTests'
+                }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ./accounts"
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    sh "docker push ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+        stage('Deploy and Service to Kubernetes') {
+            steps {
+                script {
+                    sh "kubectl apply -f ./accounts/accounts-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl apply -f ./accounts/accounts-service.yaml -n ${NAMESPACE}"
+                }
+            }
+        }
+        stage('Deployment Image to Update') {
+            steps {
+                script {
+                    sh "kubectl set image deployment/team8-accounts team8-accounts=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
+                    sh "kubectl rollout restart deployment team8-accounts -n ${NAMESPACE}"
+                }
+            }
+        }
+    }
+}
