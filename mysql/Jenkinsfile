@@ -11,8 +11,8 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
-                    sh "kubectl apply -f ./mysql/group1-team8-app-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./mysql/group1-team8-app-service.yaml -n ${NAMESPACE}"
+                    sh "kubectl apply -f ./mysql/mysql-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl apply -f ./mysql/mysql-service.yaml -n ${NAMESPACE}"
                 }
             }
         }
