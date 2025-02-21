@@ -6,7 +6,7 @@ metadata:
 spec:
   type: NodePort # 외부에서 접근할 수 있는 IP 주소가 할당
   selector:
-    card: team8-cards # Deployment와 연결되는 selector
+    app: team8-cards # Deployment와 연결되는 selector
   ports:
     - protocol: TCP
       port: 80
