@@ -1,0 +1,36 @@
+# Team8 Cards 서비스에 대한 개별 설정
+server:
+  port: 9000  # ✅ Cards 서비스의 기본 포트
+
+spring:
+  application:
+    name: team8-cards  # ✅ 서비스 이름 정의
+
+  datasource:
+    url: jdbc:h2:mem:testdb  # ✅ H2 인메모리 데이터베이스 사용
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ''
+
+  h2:
+    console:
+      enabled: true  # ✅ H2 콘솔 활성화
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true  # ✅ SQL 쿼리 출력 활성화
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    registry-fetch-interval-seconds: 10
+    service-url:
+      defaultZone: http://team8-eureka:80/eureka/
