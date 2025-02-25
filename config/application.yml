@@ -2,6 +2,6 @@
 spring:
   cloud:
     config:
-      fail-fast: true  # ✅ Config Server 연결 실패 시 애플리케이션 실행을 중단
+      fail-fast: true  # Config Server 연결 실패 시 애플리케이션 실행을 중단
       retry:
-        max-attempts: 5  # ✅ Config Server 연결 실패 시 최대 5번까지 재시도
+        max-attempts: 5  # Config Server 연결 실패 시 최대 5번까지 재시도

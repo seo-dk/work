@@ -1,26 +1,26 @@
 # Team8 Loans 서비스에 대한 개별 설정
 server:
-  port: 9010  # ✅ Loans 서비스의 기본 포트
+  port: 9010  # Loans 서비스의 기본 포트
 
 spring:
   application:
-    name: team8-loans  # ✅ 서비스 이름 정의
+    name: team8-loans  # 서비스 이름 정의
 
   datasource:
-    url: jdbc:h2:mem:testdb  # ✅ H2 인메모리 데이터베이스 사용
+    url: jdbc:h2:mem:testdb  # H2 인메모리 데이터베이스 사용
     driverClassName: org.h2.Driver
     username: sa
     password: ''
 
   h2:
     console:
-      enabled: true  # ✅ H2 콘솔 활성화
+      enabled: true  # H2 콘솔 활성화
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
-    show-sql: true  # ✅ SQL 쿼리 출력 활성화
+    show-sql: true  # SQL 쿼리 출력 활성화
 
 eureka:
   instance:
