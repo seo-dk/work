@@ -1,0 +1,344 @@
+{
+    "info": {
+        "name": "EazyBank API Collection",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create Account",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/create",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"customerId\": 123,\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"mobileNumber\": \"1234567890\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "name": "Fetch Account Details",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/fetch",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Update Account",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/update",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"customerId\": 123,\n    \"name\": \"John Doe Updated\",\n    \"email\": \"john.doe@example.com\",\n    \"mobileNumber\": \"1234567890\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "name": "Delete Account",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/delete",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Create Card",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/create",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Fetch Card Details",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/fetch",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Update Card",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/update",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"cardId\": 456,\n    \"customerId\": 123,\n    \"cardType\": \"Credit\",\n    \"limit\": 5000\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "name": "Delete Card",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/delete",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Create Loan",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/create",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Fetch Loan Details",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/fetch",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Update Loan",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/update",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"loanId\": 789,\n    \"customerId\": 123,\n    \"loanType\": \"Home\",\n    \"amount\": 100000\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "name": "Delete Loan",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://team8-eureka:80/eureka/api/api/delete",
+                    "host": [
+                        "http://team8-eureka:80"
+                    ],
+                    "path": [
+                        "eureka"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
