@@ -38,7 +38,7 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
-                    sh "kubectl delete -f ./accounts/accounts-deploy.yaml -n ${NAMESPACE}"
+                    //sh "kubectl delete -f ./accounts/accounts-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./accounts/accounts-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./accounts/accounts-service.yaml -n ${NAMESPACE}"
                 }
