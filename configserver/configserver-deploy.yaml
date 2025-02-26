@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: team8-configserver
+  namespace: group1-team8
+  labels:
+    app: team8-configserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: team8-configserver
+  template:
+    metadata:
+      labels:
+        app: team8-configserver
+    spec:
+      containers:
+      - name: team8-configserver
+        image: k8s-vga-worker1:5000/team8-configserver:latest
+        ports:
+        - containerPort: 8080
