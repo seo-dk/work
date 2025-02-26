@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EntityScan("com.eazybytes.cards.model")*/
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
 @EnableDiscoveryClient
+@EnableFeignClients
 @OpenAPIDefinition(
 		info = @Info(
 				title = "Cards microservice REST API Documentation",
