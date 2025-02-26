@@ -9,6 +9,6 @@ spec:
     app: team8-configserver
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8080
+      port: 8888
+      targetPort: 8888
       nodePort: 30850
