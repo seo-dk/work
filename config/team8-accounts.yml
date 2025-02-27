@@ -44,9 +44,7 @@ resilience4j:
         waitDurationInOpenState: 10000  # open 상태 지속 시간
         permittedNumberOfCallsInHalfOpenState: 2  # half-open 상태에서 허용되는 요청 수
         
-    instances:
+    instances:  
       serviceaccount:
-        slidingWindowSize: 10  # 요청 수
-        failureRateThreshold: 50  # 실패율 50% 이상이면 open
-        waitDurationInOpenState: 10000  # open 상태 지속 시간
-        permittedNumberOfCallsInHalfOpenState: 2  # half-open 상태에서 허용되는 요청 수
+        baseConfig: default
+        slidingWindowSize: 10 # 요청 수
