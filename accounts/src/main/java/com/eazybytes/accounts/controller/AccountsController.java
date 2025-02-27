@@ -43,7 +43,6 @@ import org.springframework.web.bind.annotation.*;
 public class AccountsController {
 
     private IAccountsService iAccountsService;
-    private ErrorResponseDto errorResponseDto;
 
     @Operation(
             summary = "Create Account REST API",
@@ -213,6 +212,7 @@ public class AccountsController {
     // 장애 발생 시 대체 로직 (fallback)
     public ResponseEntity<ErrorResponseDto> fallbackfetchAccountDetailsError(String mobileNumber, Throwable throwable) {
         // 장애 발생 시 대신 호출되는 메소드
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto();
         errorResponseDto.setErrorMessage("Service is unavailable. Please try again later.");
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorResponseDto);  // 대체 응답 반환
     }
