@@ -201,7 +201,7 @@ public class AccountsController {
         return ResponseEntity.status(HttpStatus.OK).body(new ServerInfoDto(hostname,ip,port));
     }
 
-    @CircuitBreaker(name = "serviceaccount", fallbackMethod = "fallbackfetchAccountDetailsError")
+    @CircuitBreaker(name = "accountCircuitBreaker", fallbackMethod = "fallbackfetchAccountDetailsError")
     @GetMapping("/fetch-error")
     public ResponseEntity<CustomerDto> fetchAccountDetailsError(@RequestParam
                                                                @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
