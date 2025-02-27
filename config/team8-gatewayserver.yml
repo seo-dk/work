@@ -50,14 +50,20 @@ management:
     gateway:
       access: unrestricted
       # enabled: true  # Gateway의 라우트 확인을 위한 Actuator 설정 # 운영중일때 유용
-      
+    
 resilience4j.circuitbreaker:
   configs:
     default:
-      slidingWindowSize: 10 # 요청 수
+      slidingWindowSize: 100 # 요청 수
       permittedNumberOfCallsInHalfOpenState: 2 # half-open 상태에서 허용되는 요청 수
       failureRateThreshold: 50 # 실패율 50% 이상이면 open
       waitDurationInOpenState: 10000 # open 상태 지속 시간
+    
+    servieaccount:
+        slidingWindowSize: 10 # 요청 수
+        permittedNumberOfCallsInHalfOpenState: 2 # half-open 상태에서 허용되는 요청 수
+        failureRateThreshold: 50 # 실패율 50% 이상이면 open
+        waitDurationInOpenState: 10000 # open 상태 지속 시간
 
 logging:
   level:
