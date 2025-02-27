@@ -44,7 +44,8 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, gateway, routes
+        include: "*"
   endpoint:
     gateway:
+      access: unrestricted
       enabled: true  # Gateway의 라우트 확인을 위한 Actuator 설정
