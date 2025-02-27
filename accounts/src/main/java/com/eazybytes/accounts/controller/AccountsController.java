@@ -1,6 +1,7 @@
 package com.eazybytes.accounts.controller;
 
 import com.eazybytes.accounts.constants.AccountsConstants;
+import com.eazybytes.accounts.dto.CustomErrorDto;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.dto.ErrorResponseDto;
 import com.eazybytes.accounts.dto.ResponseDto;
@@ -210,10 +211,10 @@ public class AccountsController {
     }
 
     // 장애 발생 시 대체 로직 (fallback)
-    public ResponseEntity<ErrorResponseDto> fallbackfetchAccountDetailsError(String mobileNumber, Throwable throwable) {
+    public ResponseEntity<CustomErrorDto> fallbackfetchAccountDetailsError(String mobileNumber, Throwable throwable) {
         // 장애 발생 시 대신 호출되는 메소드
-        ErrorResponseDto errorResponseDto = new ErrorResponseDto();
-        errorResponseDto.setErrorMessage("Service is unavailable. Please try again later.");
-        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorResponseDto);  // 대체 응답 반환
+        CustomErrorDto customErrorDto = new CustomErrorDto(HttpStatus.SERVICE_UNAVAILABLE, "Service is unavailable. Please try again later.");
+
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(customErrorDto);  // 대체 응답 반환
     }
 }
