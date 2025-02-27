@@ -45,6 +45,6 @@ resilience4j:
         permittedNumberOfCallsInHalfOpenState: 2  # half-open 상태에서 허용되는 요청 수
         
     instances:  
-      serviceaccount:
+      accountCircuitBreaker:
         baseConfig: default
         slidingWindowSize: 10 # 요청 수
