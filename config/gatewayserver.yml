@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: gatewayserver  # Config Server에서 가져올 이름
+    name: team8-gatewayserver  # Config Server에서 가져올 이름
 
   cloud:
     gateway:
