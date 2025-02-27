@@ -6,6 +6,8 @@ import com.eazybytes.accounts.dto.ErrorResponseDto;
 import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.dto.ServerInfoDto;
 import com.eazybytes.accounts.service.IAccountsService;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,6 +21,7 @@ import lombok.AllArgsConstructor;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import org.springframework.boot.autoconfigure.integration.IntegrationProperties.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +43,7 @@ import org.springframework.web.bind.annotation.*;
 public class AccountsController {
 
     private IAccountsService iAccountsService;
+    private ErrorResponseDto errorResponseDto;
 
     @Operation(
             summary = "Create Account REST API",
@@ -195,5 +199,21 @@ public class AccountsController {
         int port = 9020; 
 
         return ResponseEntity.status(HttpStatus.OK).body(new ServerInfoDto(hostname,ip,port));
+    }
+
+    @CircuitBreaker(name = "serviceaccount", fallbackMethod = "fallbackfetchAccountDetailsError")
+    @GetMapping("/fetch-error")
+    public ResponseEntity<CustomerDto> fetchAccountDetailsError(@RequestParam
+                                                               @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
+                                                               String mobileNumber) {
+        CustomerDto customerDto = iAccountsService.fetchAccount(mobileNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(customerDto);
+    }
+
+    // 장애 발생 시 대체 로직 (fallback)
+    public ResponseEntity<ErrorResponseDto> fallbackfetchAccountDetailsError(String mobileNumber, Throwable throwable) {
+        // 장애 발생 시 대신 호출되는 메소드
+        errorResponseDto.setErrorMessage("Service is unavailable. Please try again later.");
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorResponseDto);  // 대체 응답 반환
     }
 }
