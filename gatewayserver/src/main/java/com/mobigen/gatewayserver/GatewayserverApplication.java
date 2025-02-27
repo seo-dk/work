@@ -1,15 +1,13 @@
 package com.mobigen.gatewayserver;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@RestController
-public class FallbackController {
+@SpringBootApplication
+public class GatewayserverApplication {
 
-    @RequestMapping("/contactSupport")
-    public Mono<String> contactSupport() {
-        return Mono.just("An error occurred. Please try after some time or contact support team!!!");
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(GatewayserverApplication.class, args);
+	}
 
 }
