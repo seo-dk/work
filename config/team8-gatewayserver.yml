@@ -59,7 +59,6 @@ resilience4j.circuitbreaker:
       permittedNumberOfCallsInHalfOpenState: 2 # half-open 상태에서 허용되는 요청 수
       failureRateThreshold: 50 # 실패율 50% 이상이면 open
       waitDurationInOpenState: 10000 # open 상태 지속 시간
-    
     serviceaccount:
         slidingWindowSize: 10 # 요청 수
         permittedNumberOfCallsInHalfOpenState: 2 # half-open 상태에서 허용되는 요청 수
