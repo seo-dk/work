@@ -39,7 +39,8 @@ eureka:
       defaultZone: http://team8-eureka:80/eureka/
     register-with-eureka: true
     fetch-registry: true
-      
+
+management:
   endpoint:
     gateway:
       access: unrestricted
