@@ -38,17 +38,18 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
+                    sh "kubectl delete -f ./eurekaserver/eureka-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./eurekaserver/eureka-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./eurekaserver/eureka-service.yaml -n ${NAMESPACE}"
                 }
             }
         }
-        stage('Deployment Image to Update') {
-            steps {
-                script {
-                    sh "kubectl set image deployment/team8-eureka team8-eureka=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
-                }
-            }
-        }
+        // stage('Deployment Image to Update') {
+        //     steps {
+        //         script {
+        //             sh "kubectl set image deployment/team8-eureka team8-eureka=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
+        //         }
+        //     }
+        // }
     }
 }
