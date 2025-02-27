@@ -4,7 +4,7 @@ metadata:
   name: team8-gatewayserver
   namespace: group1-team8
   labels:
-    app: team8-accounts
+    app: team8-gatewayserver
 spec:
   replicas: 1
   selector:
