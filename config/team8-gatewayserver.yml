@@ -18,6 +18,9 @@ spring:
             - Path=/accounts/** # /accounts 로 시작하는 모든 요청을 매핑
           filters:
             - StripPrefix=1  # /accounts 제거 후 백엔드 서비스로 전달
+            - name: CircuitBreaker
+              args:
+                name: serviceaccount
 
         - id: cards-service  # eureka team8-cards 서비스 라우팅
           uri: lb://team8-cards
