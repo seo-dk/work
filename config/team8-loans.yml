@@ -33,4 +33,5 @@ eureka:
     fetch-registry: true
     registry-fetch-interval-seconds: 10
     service-url:
-      defaultZone: http://team8-eureka:80/eureka/
+      ## defaultZone: http://team8-eureka:80/eureka/
+      defaultZone: http://localhost:8761/eureka/

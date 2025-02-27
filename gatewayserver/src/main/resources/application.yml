@@ -1,13 +1,9 @@
+server:
+  port: 8080  # 기존 설정 유지 (9020)
+
 spring:
   application:
     name: gatewayserver  # ✅ Config Server에서 이 이름으로 설정을 찾음
 
   config:
     import: "optional:configserver:http://config-server:8888/"  # ✅ Config Server에서 설정 가져오기
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://team8-eureka:80/eureka/
-    register-with-eureka: true
-    fetch-registry: true
