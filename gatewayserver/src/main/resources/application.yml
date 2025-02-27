@@ -4,10 +4,3 @@ spring:
 
   config:
     import: "optional:configserver:http://team8-configserver:8888/"  # ✅ Config Server에서 설정 가져오기
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://team8-eureka:80/eureka/
-    register-with-eureka: true
-    fetch-registry: true
