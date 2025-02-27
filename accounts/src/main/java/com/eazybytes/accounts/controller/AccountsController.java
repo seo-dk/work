@@ -206,6 +206,10 @@ public class AccountsController {
     public ResponseEntity<CustomerDto> fetchAccountDetailsError(@RequestParam
                                                                @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
                                                                String mobileNumber) {
+        if (Math.random() > 0.5) {
+            throw new RuntimeException("Service is temporarily unavailable.");
+        }
+
         CustomerDto customerDto = iAccountsService.fetchAccount(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(customerDto);
     }
