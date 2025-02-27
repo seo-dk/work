@@ -1,4 +1,4 @@
-package com.mobigen.gatewayserver;
+package com.eazybytes.gatewayserver.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

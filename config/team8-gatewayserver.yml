@@ -20,9 +20,9 @@ spring:
             - StripPrefix=1  # /accounts 제거 후 백엔드 서비스로 전달
             - name: CircuitBreaker
               args:
-                name: serviceaccount
-                fallbackUri: forward:/fallback
-
+                name: accountCircuitBreaker
+                fallbackUri: forward:/contactSupport
+            
         - id: cards-service  # eureka team8-cards 서비스 라우팅
           uri: lb://team8-cards
           predicates:
@@ -65,6 +65,6 @@ resilience4j.circuitbreaker:
       waitDurationInOpenState: 10000 # open 상태 지속 시간
       
     instances:  
-      serviceaccount:
+      accountCircuitBreaker:
         baseConfig: default
         slidingWindowSize: 10 # 요청 수
