@@ -21,6 +21,7 @@ spring:
             - name: CircuitBreaker
               args:
                 name: serviceaccount
+                fallbackUri: forward:/fallback
 
         - id: cards-service  # eureka team8-cards 서비스 라우팅
           uri: lb://team8-cards
