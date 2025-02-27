@@ -45,7 +45,16 @@ management:
     web:
       exposure:
         include: "*"
+        
   endpoint:
     gateway:
       access: unrestricted
       # enabled: true  # Gateway의 라우트 확인을 위한 Actuator 설정 # 운영중일때 유용
+      
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000
