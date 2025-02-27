@@ -18,6 +18,7 @@ spring:
             - Path=/accounts/** # /accounts 로 시작하는 모든 요청을 매핑
           filters:
             - StripPrefix=1  # /accounts 제거 후 백엔드 서비스로 전달
+            - CircuitBreaker=serviceaccount
 
         - id: cards-service  # eureka team8-cards 서비스 라우팅
           uri: lb://team8-cards
@@ -56,3 +57,16 @@ logging:
     com:
       eazybytes:
         gatewayserver: DEBUG
+        
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 100 # 요청 수
+      permittedNumberOfCallsInHalfOpenState: 2 # half-open 상태에서 허용되는 요청 수
+      failureRateThreshold: 50 # 실패율 50% 이상이면 open
+      waitDurationInOpenState: 10000 # open 상태 지속 시간
+      
+    instances:  
+      serviceaccount:
+        baseConfig: default
+        slidingWindowSize: 10 # 요청 수
