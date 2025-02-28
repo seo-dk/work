@@ -44,7 +44,7 @@ resilience4j.circuitbreaker:
       waitDurationInOpenState: 10000 # open 상태 지속 시간
       
     instances:  
-      accountServiceFail:
+      accountServiceFallback:
         baseConfig: default
         slowCallRateThreshold: 50  # 50% 이상 느린 응답 시 OPEN
         slowCallDurationThreshold: 2000  # 2초 이상 걸리면 slow call로 판단

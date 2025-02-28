@@ -31,8 +31,14 @@ public class AccountsMergeImpl implements IAccountsMerge{
     private final LoansFeignClient loansFeignClient;
 
     @Override
-    //@CircuitBreaker(name = "customerService", fallbackMethod = "fallbackGetCustomerDetails")
+    @CircuitBreaker(name = "accountServiceFallback", fallbackMethod = "fallbackService")
     public MergeDto getMergeDetails(@RequestParam String mobileNumber) {
+
+        if (Math.random() > 0.5) {
+            throw new RuntimeException("Account service error");
+        }
+
+        
         // 고객 정보 조회
         Customer customer =  customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
             () -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber)
@@ -54,13 +60,9 @@ public class AccountsMergeImpl implements IAccountsMerge{
         return new MergeDto(customerDto, cardsDto, loansDto);
     }
 
-    // 서킷 브레이커 Fallback 메서드
-    // public CustomerDetailsDto fallbackGetCustomerDetails(String mobileNumber, Throwable t) {
-    //     return new CustomerDetailsDto(
-    //         new CustomerDto(null, "Fallback Customer", mobileNumber), 
-    //         new CardsDto(null, "No Card Data"), 
-    //         new LoansDto(null, "No Loan Data")
-    //     );
-    // }
+    //서킷 브레이커 Fallback 메서드
+    public String fallbackService(String mobileNumber, Throwable t) {
+        return "Fallback response: Account service is currently unavailable";
+    }
 
 }
