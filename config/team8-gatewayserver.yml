@@ -67,4 +67,5 @@ resilience4j.circuitbreaker:
     instances:  
       accountCircuitBreaker:
         baseConfig: default
-        slidingWindowSize: 10 # 요청 수
+        minimumNumberOfCalls: 4    # 최소 4개의 요청이 있어야 통계 계산 시작
+        slidingWindowSize: 6       # 최근 6개의 요청 기준으로 실패율 계산
