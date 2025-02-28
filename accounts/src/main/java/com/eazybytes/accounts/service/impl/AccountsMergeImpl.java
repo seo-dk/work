@@ -18,7 +18,6 @@ import com.eazybytes.accounts.service.client.CardsFeignClient;
 import com.eazybytes.accounts.service.client.LoansFeignClient;
 import com.eazybytes.accounts.repository.CustomerRepository;
 import com.eazybytes.accounts.repository.AccountsRepository;
-
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 
