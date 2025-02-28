@@ -37,7 +37,6 @@ public class AccountsMergeImpl implements IAccountsMerge{
         if (Math.random() > 0.5) {
             throw new RuntimeException("Account service error");
         }
-
         
         // 고객 정보 조회
         Customer customer =  customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
