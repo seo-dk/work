@@ -38,13 +38,13 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
-                    sh "kubectl apply -f ./loans/loans-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./loans/loans-service.yaml -n ${NAMESPACE}"
-
-                    // sh "kubectl delete -f ./loans/loans-deploy.yaml -n ${NAMESPACE}"
                     // sh "kubectl apply -f ./loans/loans-deploy.yaml -n ${NAMESPACE}"
-                    // sh "kubectl delete -f ./loans/loans-service.yaml -n ${NAMESPACE}"
                     // sh "kubectl apply -f ./loans/loans-service.yaml -n ${NAMESPACE}"
+
+                    sh "kubectl delete -f ./loans/loans-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl apply -f ./loans/loans-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl delete -f ./loans/loans-service.yaml -n ${NAMESPACE}"
+                    sh "kubectl apply -f ./loans/loans-service.yaml -n ${NAMESPACE}"
                 }
             }
         }
