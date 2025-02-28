@@ -4,9 +4,10 @@ import com.eazybytes.accounts.constants.AccountsConstants;
 import com.eazybytes.accounts.dto.CustomErrorDto;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.dto.ErrorResponseDto;
+import com.eazybytes.accounts.dto.MergeDto;
 import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.dto.ServerInfoDto;
-import com.eazybytes.accounts.service.IAccountFallback;
+import com.eazybytes.accounts.service.IAccountsMerge;
 import com.eazybytes.accounts.service.IAccountsService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -45,7 +46,7 @@ import org.springframework.web.bind.annotation.*;
 public class AccountsController {
 
     private IAccountsService iAccountsService;
-    private IAccountFallback iAccountFallback;
+    private IAccountsMerge iAccountsMerge;
 
     @Operation(
             summary = "Create Account REST API",
@@ -203,8 +204,9 @@ public class AccountsController {
         return ResponseEntity.status(HttpStatus.OK).body(new ServerInfoDto(hostname,ip,port));
     }
 
-    @GetMapping("/get-cards")
-    public String fetchAccountDetailsError() {
-        return iAccountFallback.getAccountData();
+    @GetMapping("/merge")
+    public ResponseEntity<MergeDto> getCustomerDetails(@RequestParam String mobileNumber) {
+        MergeDto customerDetails = iAccountsMerge.getMergeDetails(mobileNumber);
+        return ResponseEntity.ok(customerDetails);
     }
 }
