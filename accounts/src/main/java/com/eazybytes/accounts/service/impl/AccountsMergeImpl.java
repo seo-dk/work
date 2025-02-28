@@ -1,5 +1,8 @@
 package com.eazybytes.accounts.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -60,8 +63,32 @@ public class AccountsMergeImpl implements IAccountsMerge{
     }
 
     //서킷 브레이커 Fallback 메서드
-    public String fallbackService(String mobileNumber, Throwable t) {
-        return "Fallback response: Account service is currently unavailable";
+    public Map<String, Object> fallbackService(String mobileNumber, Throwable t) {
+        
+        Map<String, Object> fallbackResponse = new HashMap<>();
+    
+        // 고객 정보 Fallback
+        Map<String, Object> customerFallback = new HashMap<>();
+        customerFallback.put("customerId", null);
+        customerFallback.put("name", "서비스 이용 불가");
+        customerFallback.put("mobileNumber", mobileNumber);
+        
+        // 카드 정보 Fallback
+        Map<String, Object> cardFallback = new HashMap<>();
+        cardFallback.put("cardId", null);
+        cardFallback.put("cardNumber", "카드 정보 조회 실패");
+        
+        // 대출 정보 Fallback
+        Map<String, Object> loanFallback = new HashMap<>();
+        loanFallback.put("loanId", null);
+        loanFallback.put("loanType", "대출 정보 조회 실패");
+
+        // 전체 응답 조합
+        fallbackResponse.put("customer", customerFallback);
+        fallbackResponse.put("cards", cardFallback);
+        fallbackResponse.put("loans", loanFallback);
+
+        return fallbackResponse;
     }
 
 }
