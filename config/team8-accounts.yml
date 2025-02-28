@@ -34,3 +34,19 @@ eureka:
     registry-fetch-interval-seconds: 10
     service-url:
       defaultZone: http://team8-eureka:80/eureka/
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 100 # 요청 수
+      permittedNumberOfCallsInHalfOpenState: 2 # half-open 상태에서 허용되는 요청 수
+      failureRateThreshold: 50 # 실패율 50% 이상이면 open
+      waitDurationInOpenState: 10000 # open 상태 지속 시간
+      
+    instances:  
+      accountServiceFail:
+        baseConfig: default
+        slowCallRateThreshold: 50  # 50% 이상 느린 응답 시 OPEN
+        slowCallDurationThreshold: 2000  # 2초 이상 걸리면 slow call로 판단
+        minimumNumberOfCalls: 4    # 최소 4개의 요청이 있어야 통계 계산 시작
+        slidingWindowSize: 6       # 최근 6개의 요청 기준으로 실패율 계산

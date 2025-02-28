@@ -6,6 +6,7 @@ import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.dto.ErrorResponseDto;
 import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.dto.ServerInfoDto;
+import com.eazybytes.accounts.service.IAccountFallback;
 import com.eazybytes.accounts.service.IAccountsService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -44,6 +45,7 @@ import org.springframework.web.bind.annotation.*;
 public class AccountsController {
 
     private IAccountsService iAccountsService;
+    private IAccountFallback iAccountFallback;
 
     @Operation(
             summary = "Create Account REST API",
@@ -201,24 +203,8 @@ public class AccountsController {
         return ResponseEntity.status(HttpStatus.OK).body(new ServerInfoDto(hostname,ip,port));
     }
 
-    @CircuitBreaker(name = "accountCircuitBreaker", fallbackMethod = "fallbackfetchAccountDetailsError")
-    @GetMapping("/fetch-error")
-    public ResponseEntity<CustomerDto> fetchAccountDetailsError(@RequestParam
-                                                               @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
-                                                               String mobileNumber) {
-        if (Math.random() > 0.5) {
-            throw new RuntimeException("Service is temporarily unavailable.");
-        }
-
-        CustomerDto customerDto = iAccountsService.fetchAccount(mobileNumber);
-        return ResponseEntity.status(HttpStatus.OK).body(customerDto);
-    }
-
-    // 장애 발생 시 대체 로직 (fallback)
-    public ResponseEntity<CustomErrorDto> fallbackfetchAccountDetailsError(String mobileNumber, Throwable throwable) {
-        // 장애 발생 시 대신 호출되는 메소드
-        CustomErrorDto customErrorDto = new CustomErrorDto(HttpStatus.SERVICE_UNAVAILABLE, "Service is unavailable. Please try again later.");
-
-        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(customErrorDto);  // 대체 응답 반환
+    @GetMapping("/get-cards")
+    public String fetchAccountDetailsError() {
+        return iAccountFallback.getAccountData();
     }
 }
