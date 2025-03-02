@@ -19,6 +19,6 @@ public class RabbitMQProducer {
 
     public void sendMessage(String message) {
         rabbitTemplate.convertAndSend(exchange, routingKey, message);
-        System.out.println("📢 [RabbitMQ] Sent message: " + message);
+        System.out.println("[RabbitMQ] Sent message: " + message);
     }
 }
