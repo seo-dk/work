@@ -9,6 +9,7 @@ import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFacto
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 @Configuration
 @EnableRabbit
@@ -26,6 +27,11 @@ public class RabbitMqConfig {
     //     factory.setAutoStartup(true);  // 🔹 Bean이 안전하게 시작됨
     //     return factory;
     // }
+
+    @Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+        return new RabbitTemplate(connectionFactory);
+    }
 
     // Queue 생성
     @Bean
