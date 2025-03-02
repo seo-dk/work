@@ -10,6 +10,8 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
+                    sh "kubectl delete -f ./rabbitmq/rabbitmq-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl delete -f ./rabbitmq/rabbitmq-service.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./rabbitmq/rabbitmq-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./rabbitmq/rabbitmq-service.yaml -n ${NAMESPACE}"
                 }
