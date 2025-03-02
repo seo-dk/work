@@ -1,4 +1,4 @@
-package com.eazybytes.accounts.service.client;
+package com.eazybytes.accounts.service;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 public class RabbitMQProducer {
 
     private final RabbitTemplate rabbitTemplate;
-
 
     @Value("${spring.rabbitmq.template.exchange}")
     private String exchange;

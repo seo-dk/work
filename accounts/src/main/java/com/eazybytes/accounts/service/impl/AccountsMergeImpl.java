@@ -17,13 +17,13 @@ import com.eazybytes.accounts.mapper.CustomerMapper;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.dto.LoansDto;
 import com.eazybytes.accounts.service.IAccountsMerge;
+import com.eazybytes.accounts.service.RabbitMQProducer;
 import com.eazybytes.accounts.service.client.CardsFeignClient;
 import com.eazybytes.accounts.service.client.LoansFeignClient;
 import com.eazybytes.accounts.repository.CustomerRepository;
 import com.eazybytes.accounts.repository.AccountsRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
-import com.eazybytes.accounts.service.client.RabbitMQProducer;
 
 @Service
 @RequiredArgsConstructor
