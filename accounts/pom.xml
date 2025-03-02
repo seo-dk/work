@@ -111,6 +111,11 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 	    
+        <!-- Spring Cloud Stream 사용 시 필요 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
