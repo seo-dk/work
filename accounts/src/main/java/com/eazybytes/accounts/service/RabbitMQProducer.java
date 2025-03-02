@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class RabbitMQProducer {
 
     private final RabbitTemplate rabbitTemplate;
@@ -17,6 +17,10 @@ public class RabbitMQProducer {
 
     @Value("${spring.rabbitmq.template.routing-key}")
     private String routingKey;
+
+    public RabbitMQProducer(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     public void sendMessage(String message) {
         rabbitTemplate.convertAndSend(exchange, routingKey, message);

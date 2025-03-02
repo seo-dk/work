@@ -28,11 +28,6 @@ public class RabbitMqConfig {
     //     return factory;
     // }
 
-    @Bean
-    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-        return new RabbitTemplate(connectionFactory);
-    }
-
     // Queue 생성
     @Bean
     public Queue accountQueue() {
