@@ -92,10 +92,10 @@ public class AccountsMergeImpl implements IAccountsMerge{
         fallbackResponse.put("loans", loanFallback);
 
         //  장애 발생 로그 메시지 생성
-        //String errorMessage = String.format(" [Circuit Breaker] 고객(%s)의 카드 또는 대출 정보를 가져오지 못했습니다. 원인: %s",
-        //mobileNumber, t.getMessage());
-        // RabbitMQ로 장애 메시지 전송
-        // rabbitMQProducer.sendMessage(errorMessage);
+        String errorMessage = String.format(" [Circuit Breaker] 고객(%s)의 카드 또는 대출 정보를 가져오지 못했습니다. 원인: %s",
+        mobileNumber, t.getMessage());
+        //RabbitMQ로 장애 메시지 전송
+        rabbitMQProducer.sendMessage(errorMessage);
         
         return fallbackResponse;        
     }

@@ -1,4 +1,4 @@
-package com.eazybytes.accounts;
+package com.eazybytes.accounts.configure;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
