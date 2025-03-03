@@ -41,8 +41,6 @@ public class AccountsMergeImpl implements IAccountsMerge{
         if (Math.random() > 0.5) {
             throw new RuntimeException("Account service error");
         }
-
-        //return "Fallback response: Account service is currently unavailable";
         
         // 고객 정보 조회
         Customer customer =  customerRepository.findByMobileNumber(mobileNumber).orElseThrow(
@@ -67,37 +65,19 @@ public class AccountsMergeImpl implements IAccountsMerge{
 
     //서킷 브레이커 Fallback 메서드
     public Map<String, Object> fallbackService(String mobileNumber, Throwable t) {
-        
+            
+        // 예외가 발생하면 fallback이 호출되어야 합니다.
         Map<String, Object> fallbackResponse = new HashMap<>();
-    
-        // 고객 정보 Fallback
-        Map<String, Object> customerFallback = new HashMap<>();
-        customerFallback.put("customerId", null);
-        customerFallback.put("name", "서비스 이용 불가");
-        customerFallback.put("mobileNumber", mobileNumber);
         
-        // 카드 정보 Fallback
-        Map<String, Object> cardFallback = new HashMap<>();
-        cardFallback.put("cardId", null);
-        cardFallback.put("cardNumber", "카드 정보 조회 실패");
-        
-        // 대출 정보 Fallback
-        Map<String, Object> loanFallback = new HashMap<>();
-        loanFallback.put("loanId", null);
-        loanFallback.put("loanType", "대출 정보 조회 실패");
-
-        // 전체 응답 조합
-        fallbackResponse.put("customer", customerFallback);
-        fallbackResponse.put("cards", cardFallback);
-        fallbackResponse.put("loans", loanFallback);
-
-        //  장애 발생 로그 메시지 생성
+        // 장애 발생 로깅
         String errorMessage = String.format(" [Circuit Breaker] 고객(%s)의 카드 또는 대출 정보를 가져오지 못했습니다. 원인: %s",
         mobileNumber, t.getMessage());
-        //RabbitMQ로 장애 메시지 전송
         rabbitMQProducer.sendMessage(errorMessage);
         
-        return fallbackResponse;        
+        // 대체 응답
+        fallbackResponse.put("customer", "서비스 이용 불가");
+        return fallbackResponse;
+            
     }
 
 }
