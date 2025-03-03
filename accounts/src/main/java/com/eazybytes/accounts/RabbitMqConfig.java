@@ -5,7 +5,6 @@ import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
-import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -15,34 +14,30 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 @EnableRabbit
 public class RabbitMqConfig {
 
-    // Queue, Exchange, Routing Key 설정
-    public static final String QUEUE_NAME = "account-service-queue";
     public static final String EXCHANGE_NAME = "account-service-exchange";
     public static final String ROUTING_KEY = "account-service-routing-key";
+    public static final String QUEUE_NAME = "account-service-queue";
 
-    // @Bean
-    // public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
-    //     SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-    //     factory.setConnectionFactory(connectionFactory);
-    //     factory.setAutoStartup(true);  // 🔹 Bean이 안전하게 시작됨
-    //     return factory;
-    // }
-
-    // Queue 생성
     @Bean
-    public Queue accountQueue() {
-        return new Queue(QUEUE_NAME, true); // durable = true (재부팅 시에도 유지)
+    Queue queue() {
+        return new Queue(QUEUE_NAME, true);
     }
 
-    // Exchange 생성 (DirectExchange 사용)
     @Bean
-    public DirectExchange accountExchange() {
+    DirectExchange exchange() {
         return new DirectExchange(EXCHANGE_NAME);
     }
 
-    // Queue와 Exchange를 Routing Key로 바인딩
     @Bean
-    public Binding accountBinding(Queue accountQueue, DirectExchange accountExchange) {
-        return BindingBuilder.bind(accountQueue).to(accountExchange).with(ROUTING_KEY);
+    Binding binding(Queue queue, DirectExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
+    }
+
+    @Bean
+    RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setExchange(EXCHANGE_NAME);
+        rabbitTemplate.setRoutingKey(ROUTING_KEY);
+        return rabbitTemplate;
     }
 }

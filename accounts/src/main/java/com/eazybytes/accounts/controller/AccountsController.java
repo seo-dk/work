@@ -8,6 +8,7 @@ import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.dto.ServerInfoDto;
 import com.eazybytes.accounts.service.IAccountsMerge;
 import com.eazybytes.accounts.service.IAccountsService;
+import com.eazybytes.accounts.service.IRabbitMqProducer;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -44,6 +45,7 @@ public class AccountsController {
 
     private IAccountsService iAccountsService;
     private IAccountsMerge iAccountsMerge;
+    private IRabbitMqProducer iRabbitMqProducer;
 
     @Operation(
             summary = "Create Account REST API",
@@ -205,5 +207,11 @@ public class AccountsController {
     public ResponseEntity<MergeDto> getCustomerDetails(@RequestParam String mobileNumber) {
         MergeDto customerDetails = iAccountsMerge.getMergeDetails(mobileNumber);
         return ResponseEntity.ok(customerDetails);
+    }
+
+    @GetMapping("/send")
+    public String sendMessage(@RequestParam String message) {
+        iRabbitMqProducer.sendMessage(message);
+        return "Message sent: " + message;
     }
 }

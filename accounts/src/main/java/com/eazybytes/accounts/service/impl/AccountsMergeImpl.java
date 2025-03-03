@@ -17,7 +17,6 @@ import com.eazybytes.accounts.mapper.CustomerMapper;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.dto.LoansDto;
 import com.eazybytes.accounts.service.IAccountsMerge;
-import com.eazybytes.accounts.service.RabbitMQProducer;
 import com.eazybytes.accounts.service.client.CardsFeignClient;
 import com.eazybytes.accounts.service.client.LoansFeignClient;
 import com.eazybytes.accounts.repository.CustomerRepository;
@@ -33,7 +32,7 @@ public class AccountsMergeImpl implements IAccountsMerge{
     private final AccountsRepository accountsRepository;
     private final CardsFeignClient cardsFeignClient;
     private final LoansFeignClient loansFeignClient;
-    private final RabbitMQProducer rabbitMQProducer;
+    private final RabbitMqProducer rabbitMQProducer;
 
     @Override
     @CircuitBreaker(name = "accountServiceFallback", fallbackMethod = "fallbackService")
@@ -97,7 +96,7 @@ public class AccountsMergeImpl implements IAccountsMerge{
         mobileNumber, t.getMessage());
 
         // RabbitMQ로 장애 메시지 전송
-        rabbitMQProducer.sendMessage(errorMessage);
+        // rabbitMQProducer.sendMessage(errorMessage);
         
         return fallbackResponse;        
     }
