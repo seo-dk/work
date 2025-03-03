@@ -31,11 +31,6 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    public RabbitTemplate rabbitTemplate(CachingConnectionFactory connectionFactory) {
-        return new RabbitTemplate(connectionFactory);
-    }
-
-    @Bean
     Queue queue() {
         return new Queue(QUEUE_NAME, true);
     }
