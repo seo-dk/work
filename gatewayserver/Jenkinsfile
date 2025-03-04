@@ -39,6 +39,7 @@ pipeline {
             steps {
                 script {
                     sh "kubectl delete -f ./gatewayserver/gatewayserver-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl delete -f ./gatewayserver/gatewayserver-service.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./gatewayserver/gatewayserver-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./gatewayserver/gatewayserver-service.yaml -n ${NAMESPACE}"
                 }

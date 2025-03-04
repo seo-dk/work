@@ -10,6 +10,8 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
+                    sh "kubectl delete -f ./mysql/mysql-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl delete -f ./mysql/mysql-service.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./mysql/mysql-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./mysql/mysql-service.yaml -n ${NAMESPACE}"
                 }

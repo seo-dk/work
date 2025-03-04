@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: group1-team8
+spec:
+  type: NodePort # 외부 접속을 위한 LoadBalancer 타입 (NodePort, ClusterIP 등 필요에 따라 변경)
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306 # 파드 컨테이너 포트
+      nodePort: 30801 # 노드  포트

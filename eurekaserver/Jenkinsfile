@@ -38,7 +38,8 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
-                    //sh "kubectl delete -f ./eurekaserver/eureka-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl delete -f ./eurekaserver/eureka-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl delete -f ./eurekaserver/eureka-service.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./eurekaserver/eureka-deploy.yaml -n ${NAMESPACE}"
                     sh "kubectl apply -f ./eurekaserver/eureka-service.yaml -n ${NAMESPACE}"
                 }
