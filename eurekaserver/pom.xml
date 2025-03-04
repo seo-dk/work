@@ -63,7 +63,7 @@
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
 
-<!-- Spring Boot에서 Jaeger 사용하기 -->
+        <!-- Spring Boot에서 Jaeger 사용하기 -->
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-exporter-otlp</artifactId>

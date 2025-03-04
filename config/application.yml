@@ -21,4 +21,9 @@ management:
     health:
       show-details: always
       probes:
+        enabled: true      
+  metrics:
+    export:
+      prometheus:
         enabled: true
+
