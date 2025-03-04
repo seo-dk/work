@@ -3,9 +3,13 @@ package com.eazybytes.accounts.controller;
 import com.eazybytes.accounts.constants.AccountsConstants;
 import com.eazybytes.accounts.dto.CustomerDto;
 import com.eazybytes.accounts.dto.ErrorResponseDto;
+import com.eazybytes.accounts.dto.MergeDto;
 import com.eazybytes.accounts.dto.ResponseDto;
 import com.eazybytes.accounts.dto.ServerInfoDto;
+import com.eazybytes.accounts.service.IAccountsMerge;
 import com.eazybytes.accounts.service.IAccountsService;
+import com.eazybytes.accounts.service.IRabbitMqProducer;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,7 +28,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * @author Eazy Bytes
@@ -41,6 +44,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class AccountsController {
 
     private IAccountsService iAccountsService;
+    private IAccountsMerge iAccountsMerge;
+    private IRabbitMqProducer iRabbitMqProducer;
 
     @Operation(
             summary = "Create Account REST API",
@@ -196,5 +201,17 @@ public class AccountsController {
         int port = 9020; 
 
         return ResponseEntity.status(HttpStatus.OK).body(new ServerInfoDto(hostname,ip,port));
+    }
+
+    @GetMapping("/merge")
+    public ResponseEntity<MergeDto> getCustomerDetails(@RequestParam String mobileNumber) {
+        MergeDto customerDetails = iAccountsMerge.getMergeDetails(mobileNumber);
+        return ResponseEntity.ok(customerDetails);
+    }
+
+    @GetMapping("/send")
+    public String sendMessage(@RequestParam String message) {
+        iRabbitMqProducer.sendMessage(message);
+        return "Message sent: " + message;
     }
 }

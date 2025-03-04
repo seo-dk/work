@@ -1,0 +1,368 @@
+{
+    "info": {
+        "name": "team8-postman-Collection",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create Account",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-accounts/api/create",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-accounts",
+                        "api",
+                        "create"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"customerId\": 123,\n    \"name\": \"John Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"mobileNumber\": \"1234567890\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "name": "Fetch Account Details",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-accounts/api/fetch",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-accounts",
+                        "api",
+                        "fetch"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Update Account",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-accounts/api/update",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-accounts",
+                        "api",
+                        "update"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"customerId\": 123,\n    \"name\": \"John Doe Updated\",\n    \"email\": \"john.doe@example.com\",\n    \"mobileNumber\": \"1234567890\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "name": "Delete Account",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-accounts/api/delete",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-accounts",
+                        "api",
+                        "delete"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Create Card",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-cards/api/create",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-cards",
+                        "api",
+                        "create"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Fetch Card Details",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-cards/api/fetch",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-cards",
+                        "api",
+                        "fetch"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Update Card",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-cards/api/update",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-cards",
+                        "api",
+                        "update"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"cardId\": 456,\n    \"customerId\": 123,\n    \"cardType\": \"Credit\",\n    \"limit\": 5000\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "name": "Delete Card",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-cards/api/delete",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-cards",
+                        "api",
+                        "delete"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Create Loan",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-loans/api/create",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-loans",
+                        "api",
+                        "create"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Fetch Loan Details",
+            "request": {
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-loans/api/fetch",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-loans",
+                        "api",
+                        "fetch"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Update Loan",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-loans/api/update",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-loans",
+                        "api",
+                        "update"
+                    ]
+                },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"loanId\": 789,\n    \"customerId\": 123,\n    \"loanType\": \"Home\",\n    \"amount\": 100000\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "name": "Delete Loan",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "url": {
+                    "raw": "http://192.168.100.221:30860/team8-loans/api/delete",
+                    "host": [
+                        "http://192.168.100.221:30860"
+                    ],
+                    "path": [
+                        "team8-loans",
+                        "api",
+                        "delete"
+                    ],
+                    "query": [
+                        {
+                            "key": "mobileNumber",
+                            "value": "1234567890"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

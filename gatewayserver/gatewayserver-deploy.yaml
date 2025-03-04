@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: team8-gatewayserver
+  namespace: group1-team8
+  labels:
+    app: team8-gatewayserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: team8-gatewayserver
+  template:
+    metadata:
+      labels:
+        app: team8-gatewayserver
+    spec:
+      containers:
+      - name: team8-gatewayserver
+        image: k8s-vga-worker1:5000/team8-gatewayserver:latest
+        ports:
+        - containerPort: 8080

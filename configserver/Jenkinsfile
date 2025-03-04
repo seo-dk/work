@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         REGISTRY = "k8s-vga-worker1:5000"
-        IMAGE_NAME = "team8-eureka"
+        IMAGE_NAME = "team8-configserver"
         IMAGE_TAG = "latest"
         NAMESPACE = "group1-team8"
         JAVA_HOME = "/tmp/jdk-21.0.5"
@@ -17,14 +17,14 @@ pipeline {
         stage('Build with Gradle') {
             steps {
                 script {
-                    sh 'cd eurekaserver && mvn clean package -DskipTests'
+                    sh 'cd configserver && mvn clean package -DskipTests'
                 }
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ./eurekaserver"
+                    sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ./configserver"
                 }
             }
         }
@@ -38,16 +38,17 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
-                    //sh "kubectl delete -f ./eurekaserver/eureka-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./eurekaserver/eureka-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./eurekaserver/eureka-service.yaml -n ${NAMESPACE}"
+                    sh "kubectl delete -f ./configserver/configserver-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl apply -f ./configserver/configserver-deploy.yaml -n ${NAMESPACE}"
+                    sh "kubectl apply -f ./configserver/configserver-service.yaml -n ${NAMESPACE}"
                 }
             }
         }
         // stage('Deployment Image to Update') {
         //     steps {
         //         script {
-        //             sh "kubectl set image deployment/team8-eureka team8-eureka=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
+        //             sh "kubectl set image deployment/team8-accounts team8-accounts=${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} --namespace=${NAMESPACE}"
+        //             sh "kubectl rollout restart deployment team8-accounts -n ${NAMESPACE}"
         //         }
         //     }
         // }

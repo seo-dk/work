@@ -1,6 +1,9 @@
 package com.eazybytes.accounts.exception;
 
 import com.eazybytes.accounts.dto.ErrorResponseDto;
+
+import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -37,7 +40,12 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleGlobalException(Exception exception,
-                                                                            WebRequest webRequest) {
+                                                                            WebRequest webRequest) throws Exception {
+
+        if(exception instanceof RuntimeException || exception instanceof CallNotPermittedException){
+            throw exception;
+        }
+
         ErrorResponseDto errorResponseDTO = new ErrorResponseDto(
                 webRequest.getDescription(false),
                 HttpStatus.INTERNAL_SERVER_ERROR,
