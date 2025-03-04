@@ -9,7 +9,7 @@ public class FallbackController {
 
     @RequestMapping("/contactSupport")
     public Mono<String> contactSupport() {
-        return Mono.just("Account Service is currently unavailable. Please try again later.");
+        return Mono.just("Account Service 서킷 브레이커가 OPEN 상태입니다. 요청을 처리할 수 없습니다.");
     }
 
 }
