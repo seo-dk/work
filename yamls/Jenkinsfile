@@ -13,7 +13,7 @@ pipeline {
         stage('apply or delete (Deploy / Service)') {
             steps {
                 script {
-                    if ("${APPLY_FLAG}" == true) {
+                    if ("${APPLY_FLAG}" == "true") {
                         sh "echo apply excute"
                         sh "kubectl apply -f ./yamls/configserver-deploy.yaml -n ${NAMESPACE}"
                         sh "kubectl apply -f ./yamls/configserver-service.yaml -n ${NAMESPACE}"
