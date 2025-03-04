@@ -1,14 +1,13 @@
 pipeline {
     agent any
     environment {
-        boolean APPLY_FLAG = true
         NAMESPACE = "group1-team8"
     }
     stages {
         stage('apply or delete (Deploy / Service)') {
             steps {
                 script {
-                    if (APPLY_FLAG == true) {
+                    if (${APPLY_FLAG} == true) {
                         sh "kubectl apply -f ./yamls/configserver-deploy.yaml -n ${NAMESPACE}"
                         sh "kubectl apply -f ./yamls/configserver-service.yaml -n ${NAMESPACE}"
                         sh "kubectl apply -f ./yamls/eureka-deploy.yaml -n ${NAMESPACE}"
