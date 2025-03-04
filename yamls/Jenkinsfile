@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    parameters {
+        defaultValue: true,
+        name: 'APPLY_FLAG'
+    }
     environment {
         NAMESPACE = "group1-team8"
     }
