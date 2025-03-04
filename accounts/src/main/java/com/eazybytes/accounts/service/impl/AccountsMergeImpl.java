@@ -1,8 +1,5 @@
 package com.eazybytes.accounts.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -64,20 +61,18 @@ public class AccountsMergeImpl implements IAccountsMerge{
     }
 
     //서킷 브레이커 Fallback 메서드
-    public Map<String, Object> fallbackService(String mobileNumber, Throwable t) {
+    public MergeDto fallbackService(String mobileNumber, Throwable t) {
             
-        // 예외가 발생하면 fallback이 호출되어야 합니다.
-        Map<String, Object> fallbackResponse = new HashMap<>();
+        CustomerDto customerDto = new CustomerDto();
+        customerDto.setName("서비스 이용 불가");
+        customerDto.setMobileNumber(mobileNumber);
         
         // 장애 발생 로깅
         String errorMessage = String.format(" [Circuit Breaker] 고객(%s)의 카드 또는 대출 정보를 가져오지 못했습니다. 원인: %s",
         mobileNumber, t.getMessage());
         rabbitMQProducer.sendMessage(errorMessage);
         
-        // 대체 응답
-        fallbackResponse.put("customer", "서비스 이용 불가");
-        return fallbackResponse;
-            
-    }
 
+        return new MergeDto(customerDto, null, null); 
+    }
 }
