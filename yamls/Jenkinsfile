@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     if ("${APPLY_FLAG}" == true) {
-                        sh "echo apply"
+                        sh "echo apply excute"
                         sh "kubectl apply -f ./yamls/configserver-deploy.yaml -n ${NAMESPACE}"
                         sh "kubectl apply -f ./yamls/configserver-service.yaml -n ${NAMESPACE}"
                         sh "kubectl apply -f ./yamls/eureka-deploy.yaml -n ${NAMESPACE}"
@@ -34,7 +34,7 @@ pipeline {
                         sh "kubectl apply -f ./yamls/mysql-deploy.yaml -n ${NAMESPACE}"
                         sh "kubectl apply -f ./yamls/mysql-service.yaml -n ${NAMESPACE}"
                     } else{
-                        sh "echo delete"
+                        sh "echo delete excute"
                         sh "kubectl delete -f ./yamls/mysql-service.yaml -n ${NAMESPACE}"
                         sh "kubectl delete -f ./yamls/mysql-deploy.yaml -n ${NAMESPACE}"
                         sh "kubectl delete -f ./yamls/demo-service.yaml -n ${NAMESPACE}"
