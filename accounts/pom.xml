@@ -116,6 +116,23 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
         </dependency>
+
+         <!-- prometheus 사용 시 필요 -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        
+        <!-- Spring Boot에서 Jaeger 사용하기 -->
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-exporter-otlp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-sdk-trace</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -127,6 +144,13 @@
               <type>pom</type>
               <scope>import</scope>
           </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-bom</artifactId>
+            <version>1.37.0</version>
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>
       </dependencies>
     </dependencyManagement>
 

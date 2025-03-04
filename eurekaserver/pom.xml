@@ -57,6 +57,22 @@
         </dependency>
 		<!-- //openfeign dependency -->
 
+        <!-- prometheus 사용 시 필요 -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+<!-- Spring Boot에서 Jaeger 사용하기 -->
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-exporter-otlp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-sdk-trace</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
