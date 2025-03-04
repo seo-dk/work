@@ -17,7 +17,7 @@ spec:
     spec:
       initContainers:  # 기존 데이터 삭제하는 initContainer 추가
       - name: init-mysql
-        image: busybox
+        image: mysql:8.0.26
         command: ["sh", "-c", "rm -rf /var/lib/mysql/*"]
         volumeMounts:
         - name: volume1
