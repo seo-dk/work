@@ -38,10 +38,10 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
-                    sh "kubectl delete -f ./gatewayserver/gatewayserver-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl delete -f ./gatewayserver/gatewayserver-service.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./gatewayserver/gatewayserver-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./gatewayserver/gatewayserver-service.yaml -n ${NAMESPACE}"
+                    try {sh "kubectl delete -f ./gatewayserver/gatewayserver-deploy.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl delete -f ./gatewayserver/gatewayserver-service.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./gatewayserver/gatewayserver-deploy.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./gatewayserver/gatewayserver-service.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                 }
             }
         }
