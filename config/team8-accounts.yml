@@ -1,6 +1,6 @@
 # Team8 Accounts 서비스에 대한 개별 설정
 server:
-  port: 9020  # Accounts 서비스의 기본 포트
+  port: 8080  # Accounts 서비스의 기본 포트
 
 spring:
   application:

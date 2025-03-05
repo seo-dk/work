@@ -1,6 +1,6 @@
 # Team8 Cards 서비스에 대한 개별 설정
 server:
-  port: 9000  # Cards 서비스의 기본 포트
+  port: 8080  # Cards 서비스의 기본 포트
 
 spring:
   application:
