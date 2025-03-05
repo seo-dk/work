@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    environment {
+        REGISTRY = "k8s-vga-worker1:5000"
+        NAMESPACE = "group1-team8"
+        JAVA_HOME = "/tmp/jdk-21.0.5"
+        PATH = "${JAVA_HOME}/bin:${PATH}"
+    }
+    stages {
+        stage('Deploy and Service to Kubernetes') {
+            steps {
+                script {
+                    try {sh "kubectl delete -f ./rabbitmq/rabbitmq-deploy.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl delete -f ./rabbitmq/rabbitmq-service.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./rabbitmq/rabbitmq-deploy.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./rabbitmq/rabbitmq-service.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                }
+            }
+        }
+    }
+}

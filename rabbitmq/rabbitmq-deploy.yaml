@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rabbitmq
+  name: team8-rabbitmq
   namespace: group1-team8
   labels:
-    app: rabbitmq
+    app: team8-rabbitmq
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rabbitmq
+      app: team8-rabbitmq
   template:
     metadata:
       labels:
-        app: rabbitmq
+        app: team8-rabbitmq
     spec:
       containers:
-        - name: rabbitmq
+        - name: team8-rabbitmq
           image: rabbitmq:3-management  # 관리 UI가 포함된 RabbitMQ 이미지 사용
           ports:
             - containerPort: 5672  # AMQP 프로토콜 포트

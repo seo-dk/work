@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: team8-prometheus
+  namespace: group1-team8
+  labels:
+    app: team8-prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: team8-prometheus
+  template:
+    metadata:
+      labels:
+        app: team8-prometheus
+    spec:
+      containers:
+        - name: team8-prometheus
+          image: prom/prometheus:latest
+          args:
+            - "--config.file=/etc/prometheus/prometheus.yml"
+            - "--storage.tsdb.path=/prometheus/"
+            - "--web.enable-lifecycle"
+          ports:
+            - containerPort: 9090
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/prometheus
+      volumes:
+        - name: config-volume
+          configMap:
+            name: team8-prometheus-config
