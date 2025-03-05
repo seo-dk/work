@@ -14,21 +14,21 @@ spec:
         app: team8-grafana
     spec:
       containers:
-      - name: team8-grafana
-        image: k8s-vga-worker1:5000/grafana/grafana:latest
-        ports:
-        - containerPort: 3000
-        volumeMounts:
-        - name: team8-grafana-config
-          mountPath: /etc/grafana/provisioning/datasources
-          subPath: datasource.yml
-        env:
-        - name: GF_SECURITY_ADMIN_PASSWORD
-          value: "admin"
+        - name: team8-grafana
+          image: k8s-vga-worker1:5000/grafana/grafana:latest
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: team8-grafana-config
+              mountPath: /etc/grafana/provisioning/datasources
+              subPath: datasource.yml
+          env:
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: "admin"
       volumes:
-      - name: team8-grafana-config
-        configMap:
-          name: team8-grafana-config
+        - name: team8-grafana-config
+          configMap:
+            name: team8-grafana-config
 ---
 apiVersion: v1
 kind: Service
