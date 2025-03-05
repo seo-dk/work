@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: team8-grafana
+  namespace: group1-team8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: team8-grafana
+  template:
+    metadata:
+      labels:
+        app: team8-grafana
+    spec:
+      containers:
+      - name: team8-grafana
+        image: grafana/grafana:latest
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: team8-grafana-config
+          mountPath: /etc/grafana/provisioning/datasources
+          subPath: datasource.yml
+        env:
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          value: "admin"
+      volumes:
+      - name: team8-grafana-config
+        configMap:
+          name: team8-grafana-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: team8-grafana
+  namespace: group1-team8
+spec:
+  type: NodePort
+  selector:
+    app: team8-grafana
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+      nodePort: 30860

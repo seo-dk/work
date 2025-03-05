@@ -1,4 +1,4 @@
-apiVersion: apps/v1 # 필수 표준 apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: team8-eureka
@@ -20,3 +20,18 @@ spec:
         image: k8s-vga-worker1:5000/team8-eureka:latest
         ports:
         - containerPort: 8761
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: team8-eureka
+  namespace: group1-team8
+spec:
+  type: NodePort # 외부에서 접근할 수 있는 IP 주소가 할당
+  selector:
+    app: team8-eureka # Deployment와 연결되는 selector
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8761
+      nodePort: 30820

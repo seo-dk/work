@@ -38,10 +38,8 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
-                    try {sh "kubectl delete -f ./cards/cards-deploy.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
-                    try {sh "kubectl delete -f ./cards/cards-service.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
-                    try {sh "kubectl apply -f ./cards/cards-deploy.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
-                    try {sh "kubectl apply -f ./cards/cards-service.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl delete -f ./cards/cards-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./cards/cards-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                 }
             }
         }

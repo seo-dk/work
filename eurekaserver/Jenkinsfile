@@ -38,10 +38,8 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
-                    try {sh "kubectl delete -f ./eurekaserver/eureka-deploy.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
-                    try {sh "kubectl delete -f ./eurekaserver/eureka-service.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
-                    try {sh "kubectl apply -f ./eurekaserver/eureka-deploy.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
-                    try {sh "kubectl apply -f ./eurekaserver/eureka-service.yaml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl delete -f ./eurekaserver/eureka-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./eurekaserver/eureka-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                 }
             }
         }
