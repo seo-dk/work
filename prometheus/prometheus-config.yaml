@@ -13,15 +13,15 @@ data:
       - job_name: 'accounts'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: [ 'team8-accounts:9020' ]
+          - targets: [ 'team8-accounts:80' ]
       - job_name: 'loans'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: [ 'team8-loans:9010' ]
+          - targets: [ 'team8-loans:80' ]
       - job_name: 'cards'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: [ 'team8-cards:9000' ]
+          - targets: [ 'team8-cards:80' ]
       - job_name: 'gatewayserver'
         metrics_path: '/actuator/prometheus'
         static_configs:
@@ -29,7 +29,7 @@ data:
       - job_name: 'eurekaserver'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: [ 'team8-eureka:8761' ]
+          - targets: [ 'team8-eureka:80' ]
       - job_name: 'configserver'
         metrics_path: '/actuator/prometheus'
         static_configs:

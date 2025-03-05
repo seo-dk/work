@@ -12,3 +12,20 @@ spring:
           clone-on-start: true  # 서버 시작 시 Git에서 설정을 자동으로 가져옴
           default-label: main  # 기본적으로 main 브랜치 사용
           search-paths: config  # Git 저장소 내 설정 파일이 있는 경로 (예: work/config/)
+          
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true      
+
+  prometheus:
+    metrics:
+      export:
+        enabled: true
