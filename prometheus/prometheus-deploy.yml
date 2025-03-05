@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: team8-prometheus
-          image: prom/prometheus:latest
+          image: k8s-vga-worker1:5000/prom/prometheus:latest
           args:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"
