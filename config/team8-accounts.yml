@@ -57,7 +57,7 @@ resilience4j.circuitbreaker:
     trace:
       exporter: otlp
       otlp:
-        endpoint: http://team8-jaeger-agent:14250  # Jaeger Collector의 OTLP 엔드포인트
+        endpoint: http://team8-jaeger-collector:14250  # Jaeger Collector의 OTLP 엔드포인트
         service-name: team8-accounts  # 서비스 이름
         sampler:
           probability: 1.0
