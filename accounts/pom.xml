@@ -124,11 +124,11 @@
         </dependency>
         
         <!-- Spring Boot에서 Jaeger 사용하기 -->
-        <!-- Spring Cloud Sleuth 의존성 -->
+        <!-- Micrometer Tracing 의존성 -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-            <version>3.1.0</version> <!-- Spring Cloud 2024과 호환되는 버전 -->
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-otel</artifactId>
+            <version>1.4.3</version>
         </dependency>
 
         <!-- Jaeger 클라이언트 의존성 -->
