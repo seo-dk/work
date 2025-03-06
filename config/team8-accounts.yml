@@ -53,17 +53,13 @@ resilience4j.circuitbreaker:
         minimumNumberOfCalls: 4    # 최소 4개의 요청이 있어야 통계 계산 시작
         slidingWindowSize: 6       # 최근 6개의 요청 기준으로 실패율 계산
 
-management:
-  tracing:
-    sampling:
-      probability: 1.0  # 100% 샘플링
-
-otel:
-  exporter:
-    jaeger:
-      endpoint: http://team8-jaeger-agent:6831
-  traces:
-    exporter: jaeger
+  sleuth:
+    sampler:
+      probability: 1.0  # 모든 요청을 샘플링하여 추적
+  jaeger:
+    enabled: true
+    service-name: team8-jaeger-agent  # 서비스 이름
+    endpoint: http://team8-jaeger-agent:6831     
 
 #  rabbitmq:
 #    host: 192.168.100.221    # RabbitMQ 서버 주소
