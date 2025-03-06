@@ -55,12 +55,17 @@ resilience4j.circuitbreaker:
     trace:
       exporter: otlp
       otlp:
-        endpoint: http://team8-jaeger:14268  # Jaeger Collector의 OTLP 엔드포인트
+        endpoint: http://team8-jaeger-agent:4317  # Jaeger Collector의 OTLP 엔드포인트
         service-name: team8-accounts  # 서비스 이름
         headers: 
           X-OTLP-Metadata: "Jaeger-OTLP-Metadata-Value"  # 필요시 헤더 설정 (선택사항)
         sampler:
-          probability: 1.0     
+          probability: 1.0
+          
+logging:
+  level:
+    io.opentelemetry: DEBUG
+    io.jaegertracing: DEBUG
         
 #  rabbitmq:
 #    host: 192.168.100.221    # RabbitMQ 서버 주소
