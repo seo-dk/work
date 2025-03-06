@@ -1,8 +1,0 @@
-server:
-  port: 9020  # 기존 설정 유지 (9020)
-
-spring:
-  application:
-    name: team8-accounts
-  config:
-    import: "optional:configserver:http://team8-configserver:8888/"  # Config Server에서 설정 가져오기
