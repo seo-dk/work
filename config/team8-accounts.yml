@@ -61,7 +61,7 @@ management:
 otel:
   exporter:
     jaeger:
-      endpoint: http://team8-jaeger-agent:4317
+      endpoint: http://team8-jaeger-agent:6831
   traces:
     exporter: jaeger
 
