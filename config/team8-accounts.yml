@@ -5,6 +5,8 @@ server:
 spring:
   application:
     name: team8-accounts  # 서비스 이름 정의
+    annotations:
+      sidecar.jaegertracing.io/inject: "true"
 
   datasource:
     url: jdbc:h2:mem:testdb  # H2 인메모리 데이터베이스 사용
@@ -55,7 +57,7 @@ resilience4j.circuitbreaker:
     trace:
       exporter: otlp
       otlp:
-        endpoint: http://localhost:4317  # Jaeger Collector의 OTLP 엔드포인트
+        endpoint: http://team8-jaeger-agent:4317  # Jaeger Collector의 OTLP 엔드포인트
         service-name: team8-accounts  # 서비스 이름
         headers: 
           X-OTLP-Metadata: "Jaeger-OTLP-Metadata-Value"  # 필요시 헤더 설정 (선택사항)

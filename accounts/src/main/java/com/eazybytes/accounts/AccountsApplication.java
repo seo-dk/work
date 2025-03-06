@@ -19,7 +19,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
 @EnableDiscoveryClient
 @EnableFeignClients
-@EnableAspectJAutoProxy // AOP를 활성화하는 어노테이션
 @OpenAPIDefinition(
 		info = @Info(
 				title = "Accounts microservice REST API Documentation",
