@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+    environment {
+        NAMESPACE = "group1-team8"
+    }
+    stages {
+        stage('Deploy and Service to Kubernetes') {
+            steps {
+                script {
+                    try {sh "kubectl delete -f ./grafana/grafana-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    // try {sh "kubectl delete -f ./grafana/grafana-config.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./grafana/grafana-config.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./grafana/grafana-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                    
+                }
+            }
+        }
+    }
+}

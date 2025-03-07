@@ -15,3 +15,11 @@ data:
         editable: true
         jsonData:
           httpMethod: GET
+      - name: Zipkin
+        type: zipkin
+        access: proxy
+        url: http://team8-zipkin:9411
+        jsonData:
+          tracesEndpoint: "/api/v2/traces"
+          spansEndpoint: "/api/v2/spans"
+          serviceEndpoint: "/api/v2/services"
