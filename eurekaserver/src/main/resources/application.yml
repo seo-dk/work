@@ -13,6 +13,14 @@ eureka:
     fetch-registry:  false
 
 management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://team8-zipkin:9411/api/v2/spans
+
   endpoints:
     web:
       exposure:
