@@ -23,7 +23,7 @@ public class RabbitMqConfig {
     public CachingConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
         connectionFactory.setHost("192.168.100.221");  // 직접 IP 사용
-        connectionFactory.setPort(30880);             // NodePort 사용
+        connectionFactory.setPort(30802);             // NodePort 사용
         connectionFactory.setUsername("guest");
         connectionFactory.setPassword("guest");
         connectionFactory.setVirtualHost("/");
