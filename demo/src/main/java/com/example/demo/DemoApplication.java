@@ -12,7 +12,7 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	    // MySQL 연결을 확인하는 커맨드라인 실행 코드 (테스트용)
+	    // MySQL 연결을 확인하는 커맨드라인 실행 코드 (테스트용)pwd
     @Bean
     public CommandLineRunner run(MyEntityRepository repository) {
         return args -> {
