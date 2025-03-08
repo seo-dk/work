@@ -22,7 +22,7 @@ spec:
             - containerPort: 8080
           env:
           - name: JAEGER_ENDPOINT
-            value: "http://192.168.100.221:14250"
+            value: "http://192.168.100.221:30872"
           - name: JAEGER_AGENT_HOST
             value: "localhost"
           - name: JAEGER_AGENT_PORT
@@ -32,6 +32,7 @@ spec:
           image: jaegertracing/jaeger-agent:1.47.0
           ports:
           - containerPort: 6831
+            protocol: UDP
           args:
           - "--reporter.grpc.host-port=192.168.100.221:30872"    
 ---
