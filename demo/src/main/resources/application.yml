@@ -16,11 +16,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
-# management:
-#   tracing:
-#     enabled: true
-#     sampling:
-#       probability: 1.0
-#   zipkin:
-#     tracing:
-#       endpoint: http://192.168.100.221:30880/api/v2/spans
+management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
