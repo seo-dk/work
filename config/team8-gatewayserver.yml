@@ -48,7 +48,7 @@ management:
   endpoint:
     gateway:
       access: unrestricted
-      enabled: true  # Gateway의 라우트 확인을 위한 Actuator 설정 # 운영중일때 유용
+      #enabled: true  # Gateway의 라우트 확인을 위한 Actuator 설정 # 운영중일때 유용
     
 logging:
   level:
