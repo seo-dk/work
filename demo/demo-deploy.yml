@@ -31,6 +31,10 @@ spec:
               value: "6831"
             - name: OTEL_TRACES_SAMPLER
               value: "always_on" # 100% 샘플링
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: OTEL_LOGS_EXPORTER
+              value: "none"  
         - name: jaeger-agent
           image: jaegertracing/jaeger-agent:1.47.0
           ports:
