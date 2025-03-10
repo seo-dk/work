@@ -10,12 +10,33 @@ data:
       evaluation_interval: 5s
       
     scrape_configs:
-      - job_name: 'accounts'
-        metrics_path: '/actuator/prometheus'
+    
+      - job_name: 'configserver'
+          metrics_path: '/actuator/prometheus'
+          static_configs:
+            - targets: ['team8-configserver:8888']
+
+      - job_name: 'eurekaserver'
+          metrics_path: '/actuator/prometheus'
+          static_configs:
+            - targets: ['team8-eureka:80']
+      # Eureka 서비스 디스커버리를 사용한 동적 스크랩 설정
+
+      - job_name: 'eureka-services'
         eureka_sd_configs:
           - server: 'http://team8-eureka:80/eureka'
+            refresh_interval: 15s  # Eureka에서 서비스 목록을 갱신하는 간격
 
-      - job_name: 'accounts'
-        metrics_path: '/actuator/prometheus'
-        eureka_sd_configs:
-          - server: 'http://team8-eureka:80/eureka'    
+        relabel_configs:
+              # Eureka 메타데이터에서 애플리케이션 이름을 job 이름으로 사용
+              - source_labels: [__meta_eureka_app_name]
+                target_label: job
+
+              # Prometheus 엔드포인트를 스크랩하기 위한 경로 설정
+              - source_labels: [__address__]
+                target_label: __metrics_path__
+                replacement: '/actuator/prometheus'
+
+              # 호스트와 포트를 정확히 설정
+              - source_labels: [__address__]
+                target_label: __address__            
