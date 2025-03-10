@@ -34,3 +34,6 @@ data:
         metrics_path: '/actuator/prometheus'
         static_configs:
           - targets: [ 'team8-configserver:8888' ]
+      - job_name: 'jaeger-collector'
+        static_configs:
+          - targets: [ 'team8-jaeger-collector:14268' ]
