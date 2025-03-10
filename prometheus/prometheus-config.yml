@@ -29,10 +29,14 @@ data:
             refresh_interval: 15s
 
         relabel_configs:
-          
+          # Eureka 메타데이터에서 애플리케이션 이름을 job 이름으로 사용
           - source_labels: [__meta_eureka_app_name]
             action: drop
             regex: "TEAM8-GATEWAYSERVER"
+            
+          - source_labels: [__meta_eureka_app_name]
+            action: drop
+            target_label: job
 
           # Prometheus 엔드포인트를 스크랩하기 위한 경로 설정
           - source_labels: [__address__]
