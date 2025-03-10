@@ -1,6 +1,6 @@
 spring:
   application:
-    name: demo
+    name: team8-demo
 
   datasource:
     url: jdbc:mysql://192.168.100.221:30801/team8db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
