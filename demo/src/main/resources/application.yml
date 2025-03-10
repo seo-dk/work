@@ -17,7 +17,17 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
 
 management:
+  endpoints:
+      web:
+        exposure:
+          include: "*"
+
   tracing:
     enabled: true
     sampling:
       probability: 1.0
+
+  prometheus:
+    metrics:
+      export:
+        enabled: true

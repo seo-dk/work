@@ -34,3 +34,7 @@ data:
         metrics_path: '/actuator/prometheus'
         static_configs:
           - targets: [ 'team8-configserver:8888' ]
+      - job_name: 'demo'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: [ 'team8-demo:80' ]

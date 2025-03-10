@@ -123,6 +123,11 @@
         <artifactId>opentelemetry-exporter-jaeger</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
+
 
 	</dependencies>
 

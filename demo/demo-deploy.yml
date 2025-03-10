@@ -30,11 +30,14 @@ spec:
             - name: OTEL_TRACES_SAMPLER
               value: "always_on"
             - name: OTEL_METRICS_EXPORTER
-              value: "none"
-            - name: OTEL_LOGS_EXPORTER
-              value: "none"
-            - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: ""
+              value: "prometheus"
+            - name: OTEL_EXPORTER_PROMETHEUS_HOST
+              value: "192.168.100.221"
+            - name: OTEL_EXPORTER_PROMETHEUS_PORT
+              value: "30850"
+            - name: OTEL_LOG_LEVEL
+              value: "DEBUG"
+
         # - name: jaeger-agent
         #   image: jaegertracing/jaeger-agent:1.47.0
         #   ports:
