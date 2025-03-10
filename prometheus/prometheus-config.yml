@@ -39,11 +39,11 @@ data:
         static_configs:
         - targets: [ 'team8-jaeger-collector:14269' ]
 
-      - job_name: 'kubernetes-nodes'
-        static_configs:
-        - targets:
-          - 192.168.100.222:10250
-          - 192.168.100.223:10250
-        scheme: https
-        tls_config:
-          insecure_skip_verify: true
+      # - job_name: 'kubernetes-nodes'
+      #   static_configs:
+      #   - targets:
+      #     - 192.168.100.222:10250
+      #     - 192.168.100.223:10250
+      #   scheme: https
+      #   tls_config:
+      #     insecure_skip_verify: true
