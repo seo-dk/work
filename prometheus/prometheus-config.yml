@@ -18,7 +18,11 @@ data:
         metrics_path: '/actuator/prometheus'
         static_configs:
           - targets: ['team8-eureka:80']
-
+      - job_name: 'gatewayserver'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: [ 'team8-gatewayserver:80' ]
+          
       - job_name: 'eureka-services'
         eureka_sd_configs:
           - server: 'http://team8-eureka:80/eureka'
