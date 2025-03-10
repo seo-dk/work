@@ -22,7 +22,7 @@ data:
         metrics_path: '/actuator/prometheus'
         static_configs:
           - targets: [ 'team8-gatewayserver:80' ]
-          
+
       - job_name: 'eureka-services'
         eureka_sd_configs:
           - server: 'http://team8-eureka:80/eureka'
@@ -31,6 +31,8 @@ data:
         relabel_configs:
           # Eureka 메타데이터에서 애플리케이션 이름을 job 이름으로 사용
           - source_labels: [__meta_eureka_app_name]
+            action: drop
+            regex: "GATEWAYSERVER"
             target_label: job
 
           # Prometheus 엔드포인트를 스크랩하기 위한 경로 설정
