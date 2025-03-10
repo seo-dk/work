@@ -29,11 +29,17 @@ data:
           - source_labels: [__meta_eureka_app_name]
             target_label: job
 
-          # Prometheus 엔드포인트를 스크랩하기 위한 경로 설정
-          - source_labels: [__address__]
-            target_label: __metrics_path__
-            replacement: '/actuator/prometheus'
+          # 호스트 이름에서 서비스 이름만 추출 (Pod 이름 제거)
+          - source_labels: [__meta_eureka_app_instance_hostname]
+            regex: '(.*)-\w+-\w+'
+            replacement: '$1'
+            target_label: __tmp_service_name 
 
-          # 호스트와 포트를 정확히 설정
-          - source_labels: [__address__]
-            target_label: __address__            
+        # 포트를 추가하여 최종 주소 생성
+          - source_labels: [__tmp_service_name, __meta_eureka_app_instance_port]
+            target_label: __address__
+            replacement: '$1:$2'
+
+          # Prometheus 엔드포인트를 스크랩하기 위한 경로 설정
+          - target_label: __metrics_path__
+            replacement: '/actuator/prometheus'
