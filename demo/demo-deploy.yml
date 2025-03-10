@@ -21,20 +21,23 @@ spec:
           ports:
             - containerPort: 8080
           env:
-          - name: JAEGER_ENDPOINT
-            value: "http://192.168.100.221:30872"
-          - name: JAEGER_AGENT_HOST
-            value: "localhost"
-          - name: JAEGER_AGENT_PORT
-            value: "6831"
-
+            - name: OTEL_SERVICE_NAME
+              value: "team8-demo"
+            - name: OTEL_TRACES_EXPORTER
+              value: "jaeger"
+            - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+              value: "http://192.168.100.221:30872/api/traces" # Jaeger Collector 엔드포인트
+            - name: OTEL_EXPORTER_JAEGER_PROTOCOL
+              value: "http/thrift" # Jaeger Thrift 프로토콜
+            - name: OTEL_TRACES_SAMPLER
+              value: "always_on" # 100% 샘플링
         - name: jaeger-agent
           image: jaegertracing/jaeger-agent:1.47.0
           ports:
           - containerPort: 6831
             protocol: UDP
           args:
-          - "--reporter.grpc.host-port=192.168.100.221:30872"    
+          - "--reporter.grpc.host-port=192.168.100.221:30872" 
 ---
 apiVersion: v1
 kind: Service
