@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: team8-jaeger-agent
+  namespace: group1-team8  # 원하는 네임스페이스로 변경
+  labels:
+    app: team8-jaeger-agent
+spec:
+  selector:
+    matchLabels:
+      app: team8-jaeger-agent
+  template:
+    metadata:
+      labels:
+        app: team8-jaeger-agent
+    spec:
+      containers:
+      - name: team8-jaeger-agent
+        image: jaegertracing/jaeger-agent:1.55
+        args:
+          - "--reporter.grpc.host-port=team8-jaeger-collector:14250"  # Collector로의 gRPC 전송 설정
+        ports:
+        - containerPort: 6831
+          hostPort: 6831
