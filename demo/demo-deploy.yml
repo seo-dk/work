@@ -25,12 +25,8 @@ spec:
               value: "team8-demo"
             - name: OTEL_TRACES_EXPORTER
               value: "jaeger"
-            - name: OTEL_EXPORTER_JAEGER_HOST
-              value: "localhost"
-            - name: OTEL_EXPORTER_JAEGER_PORT
-              value: "6831"
-            - name: OTEL_EXPORTER_JAEGER_PROTOCOL
-              value: "udp/thrift"  
+            - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+              value: "thrift://localhost:6831"
             - name: OTEL_TRACES_SAMPLER
               value: "always_on"
             - name: OTEL_METRICS_EXPORTER
