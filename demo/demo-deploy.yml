@@ -24,11 +24,11 @@ spec:
             - name: OTEL_SERVICE_NAME
               value: "team8-demo"
             - name: OTEL_TRACES_EXPORTER
-              value: "jaeger"
-            - name: OTEL_EXPORTER_JAEGER_ENDPOINT
-              value: "http://192.168.100.221:30872/api/traces" # Jaeger Collector 엔드포인트
-            - name: OTEL_EXPORTER_JAEGER_PROTOCOL
-              value: "http/thrift" # Jaeger Thrift 프로토콜
+              value: "jaeger-thrift"
+            - name: OTEL_EXPORTER_JAEGER_HOST
+              value: "localhost"
+            - name: OTEL_EXPORTER_JAEGER_PORT
+              value: "6831"
             - name: OTEL_TRACES_SAMPLER
               value: "always_on" # 100% 샘플링
         - name: jaeger-agent
