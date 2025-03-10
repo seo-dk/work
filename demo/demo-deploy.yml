@@ -24,7 +24,7 @@ spec:
             - name: OTEL_SERVICE_NAME
               value: "team8-demo"
             - name: OTEL_TRACES_EXPORTER
-              value: "jaeger-thrift"
+              value: "jaeger"
             - name: OTEL_EXPORTER_JAEGER_HOST
               value: "localhost"
             - name: OTEL_EXPORTER_JAEGER_PORT
