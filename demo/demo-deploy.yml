@@ -25,16 +25,20 @@ spec:
               value: "team8-demo"
             - name: OTEL_TRACES_EXPORTER
               value: "jaeger"
-            - name: OTEL_EXPORTER_JAEGER_ENDPOINT
-              value: "http://localhost:6831"
+            - name: OTEL_EXPORTER_JAEGER_HOST
+              value: "localhost"
+            - name: OTEL_EXPORTER_JAEGER_PORT
+              value: "6831"
             - name: OTEL_EXPORTER_JAEGER_PROTOCOL
-              value: "thrift"
+              value: "udp/thrift"  
             - name: OTEL_TRACES_SAMPLER
-              value: "always_on" # 100% 샘플링
+              value: "always_on"
             - name: OTEL_METRICS_EXPORTER
               value: "none"
             - name: OTEL_LOGS_EXPORTER
-              value: "none"  
+              value: "none"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: ""
         - name: jaeger-agent
           image: jaegertracing/jaeger-agent:1.47.0
           ports:
