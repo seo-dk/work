@@ -29,20 +29,8 @@ spec:
               value: "http://192.168.100.221:30872"
             - name: OTEL_TRACES_SAMPLER
               value: "always_on"
-            - name: OTEL_METRICS_EXPORTER
-              value: "prometheus"
-            - name: OTEL_EXPORTER_PROMETHEUS_HOST
-              value: "192.168.100.221"
-            - name: OTEL_EXPORTER_PROMETHEUS_PORT
-              value: "30850"
             - name: OTEL_LOG_LEVEL
               value: "DEBUG"
-            - name: SPAN_STORAGE_TYPE
-              value: "memory"
-            - name: METRICS_STORAGE_TYPE
-              value: "prometheus"
-            - name: PROMETHEUS_SERVER_URL
-              value: "http://192.168.100.221:30850"
         # - name: jaeger-agent
         #   image: jaegertracing/jaeger-agent:1.47.0
         #   ports:
