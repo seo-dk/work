@@ -25,10 +25,10 @@ spec:
               value: "team8-demo"
             - name: OTEL_TRACES_EXPORTER
               value: "jaeger"
-            - name: OTEL_EXPORTER_JAEGER_HOST
-              value: "localhost"
-            - name: OTEL_EXPORTER_JAEGER_PORT
-              value: "6831"
+            - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+              value: "http://localhost:6831"
+            - name: OTEL_EXPORTER_JAEGER_PROTOCOL
+              value: "thrift"
             - name: OTEL_TRACES_SAMPLER
               value: "always_on" # 100% 샘플링
             - name: OTEL_METRICS_EXPORTER
