@@ -36,17 +36,17 @@ data:
           - targets: [ 'team8-configserver:8888' ]
 
     # 노드 메트릭
-    - job_name: 'kubernetes-nodes'
-      scheme: https
-      kubernetes_sd_configs:
-      - role: node
-      tls_config:
-        insecure_skip_verify: true  # 인증서 검증 생략 (테스트용)
-      relabel_configs:
-      - action: labelmap
-        regex: __meta_kubernetes_node_label_(.+)
-      - target_label: __address__
-        replacement: ${1}:10250  # Kubelet 포트 명시
+      - job_name: 'kubernetes-nodes'
+        scheme: https
+        kubernetes_sd_configs:
+        - role: node
+        tls_config:
+          insecure_skip_verify: true  # 인증서 검증 생략 (테스트용)
+        relabel_configs:
+        - action: labelmap
+          regex: __meta_kubernetes_node_label_(.+)
+        - target_label: __address__
+          replacement: ${1}:10250  # Kubelet 포트 명시
 
     # Jaeger Collector (metrics_path 명시)
       - job_name: 'jaeger-collector'
