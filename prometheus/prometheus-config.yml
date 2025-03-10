@@ -40,13 +40,10 @@ data:
         - targets: [ 'team8-jaeger-collector:14269' ]
 
       - job_name: 'kubernetes-nodes'
-        scheme: https  # Kubelet은 기본적으로 HTTPS 사용
-        kubernetes_sd_configs:
-        - role: node
-        relabel_configs:
-        - action: labelmap
-          regex: __meta_kubernetes_node_label_(.+)  # 노드 레이블 매핑
-        - target_label: __address__
-          replacement: ${1}:10250  # Kubelet 메트릭 포트 명시
+        static_configs:
+        - targets:
+          - 192.168.100.222:10250
+          - 192.168.100.223:10250
+        scheme: https
         tls_config:
-          insecure_skip_verify: true  # 인증서 검증 생략 (테스트용)
+          insecure_skip_verify: true
