@@ -26,13 +26,14 @@ spec:
         - containerPort: 14269 # admin-port
         env:
         - name: SPAN_STORAGE_TYPE
-          value: "elasticsearch"
-        - name: ES_SERVER_URLS
-          value: "http://team8-elasticsearch:9200"
-        - name: JAEGER_SAMPLER_TYPE
-          value: "const"
-        - name: JAEGER_SAMPLER_PARAM
-          value: "1"
+          value: "memory"
+        #   value: "elasticsearch"
+        # - name: ES_SERVER_URLS
+        #   value: "http://team8-elasticsearch:9200"
+        # - name: JAEGER_SAMPLER_TYPE
+        #   value: "const"
+        # - name: JAEGER_SAMPLER_PARAM
+        #   value: "1"
         - name: GRPC_MAX_MESSAGE_SIZE
           value: "16777216"  # 16MB로 설정            
 ---
