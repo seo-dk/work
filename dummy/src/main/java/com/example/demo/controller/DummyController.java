@@ -11,11 +11,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-
 public class DummyController {
+
+    private final RestTemplate restTemplate;
+ 
+    public DummyController(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+    
     @GetMapping("/hello")
     public String  getData() {
         return "Hello, I am Dummy!";
+    }
+
+    @GetMapping("/call")
+    public String callDummy() {
+        String response = restTemplate.getForObject("http://192.168.100.221:30800/api/hello", String.class);
+        return "Called Dummy: " + response;
     }
 }
 

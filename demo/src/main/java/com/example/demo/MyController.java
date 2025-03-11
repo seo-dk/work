@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -15,6 +16,11 @@ public class MyController {
 
     @Autowired
     private MyEntityRepository repository;
+    private final RestTemplate restTemplate;
+ 
+     public MyController(RestTemplate restTemplate) {
+         this.restTemplate = restTemplate;
+    }
 
     @GetMapping("/fetch")
     public List<MyEntity> getData() {
@@ -35,15 +41,15 @@ public class MyController {
         return "모든 데이터가 삭제되었습니다.";
     }
 
-    // @GetMapping("/call")
-    // public String callDummy() {
-    //     String response = restTemplate.getForObject("http://192.168.100.221:30805/api/hello", String.class);
-    //     return "Called Dummy: " + response;
-    // }
+    @GetMapping("/call")
+    public String callDummy() {
+        String response = restTemplate.getForObject("http://192.168.100.221:30805/api/hello", String.class);
+        return "Called Dummy: " + response;
+    }
 
-    // @GetMapping("/hello")
-    // public String  helloData() {
-    //     return "Hello, I am Demo!";
-    // }
+    @GetMapping("/hello")
+    public String  helloData() {
+        return "Hello, I am Demo!";
+    }
 }
 
