@@ -24,34 +24,17 @@ spec:
             - name: OTEL_SERVICE_NAME
               value: "team8-demo"
             - name: OTEL_TRACES_EXPORTER
-              value: "otlp"
-            - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: "http://team8-jaeger-collector:14250"
-            - name: OTEL_EXPORTER_OTLP_PROTOCOL
-              value: "grpc"
-              
-            # - name: OTEL_TRACES_EXPORTER
-            #   value: "jaeger"
-            # - name: OTEL_EXPORTER_JAEGER_ENDPOINT
-            #   value: "http://team8-jaeger-collector:14268/api/traces"
-            # - name: OTEL_TRACES_SAMPLER
-            #   value: "always_on"
-            # - name: OTEL_LOG_LEVEL
-            #   value: "DEBUG"
-            # - name: OTEL_METRICS_EXPORTER
-            #   value: "none"  # OTLP 메트릭 비활성화
-            # - name: OTEL_LOGS_EXPORTER
-            #   value: "none"  # 로그 비활성화  
-            # - name: OTEL_BSP_MAX_EXPORT_BATCH_SIZE
-            #   value: "512"
-
-        # - name: jaeger-agent
-        #   image: jaegertracing/jaeger-agent:1.47.0
-        #   ports:
-        #   - containerPort: 6831
-        #     protocol: UDP
-        #   args:
-        #   - "--reporter.grpc.host-port=192.168.100.221:30872" 
+              value: "jaeger"
+            - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+              value: "http://192.168.100.221:30871/api/traces"
+            - name: OTEL_TRACES_SAMPLER
+              value: "always_on"
+            - name: OTEL_LOG_LEVEL
+              value: "DEBUG"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"  # OTLP 메트릭 비활성화
+            - name: OTEL_LOGS_EXPORTER
+              value: "none"  # 로그 비활성화  
 ---
 apiVersion: v1
 kind: Service
