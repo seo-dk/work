@@ -14,8 +14,11 @@ import java.util.List;
 
 public class MyController {
     @GetMapping("/hello")
-    public List<MyEntity> getData() {
+    public String  getData() {
         return "Hello, World!";
     }
 }
+
+
+
 
