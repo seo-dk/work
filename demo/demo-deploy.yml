@@ -24,7 +24,7 @@ spec:
             - name: OTEL_SERVICE_NAME
               value: "team8-demo"
             - name: OTEL_TRACES_EXPORTER
-              value: "jaeger"
+              value: "otpl"
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: "team8-jaeger-collector:14250"
             - name: OTEL_TRACES_SAMPLER
