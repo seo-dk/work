@@ -26,17 +26,13 @@ spec:
           - name: OTEL_TRACES_EXPORTER
             value: "jaeger"
           - name: OTEL_EXPORTER_JAEGER_ENDPOINT
-            value: "hhttp://192.168.100.221:30872"
+            value: "http://team8-jaeger-collector:14250"
           - name: OTEL_TRACES_SAMPLER
             value: "always_on"
           - name: OTEL_EXPORTER_OTLP_ENDPOINT
             value: ""            
-          # - name: OTEL_LOG_LEVEL
-          #   value: "DEBUG"
-          # - name: OTEL_METRICS_EXPORTER
-          #   value: "none"  # OTLP 메트릭 비활성화
-          # - name: OTEL_LOGS_EXPORTER
-          #   value: "none"  # 로그 비활성화  
+          - name: OTEL_LOG_LEVEL
+            value: "DEBUG"
 ---
 apiVersion: v1
 kind: Service
