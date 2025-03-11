@@ -6,7 +6,7 @@ metadata:
   labels:
     app: team8-accounts
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: team8-accounts
