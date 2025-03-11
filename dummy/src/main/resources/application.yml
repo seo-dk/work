@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: team8-dummy
+
+management:
+  endpoints:
+      web:
+        exposure:
+          include: "*"
+
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+
+  prometheus:
+    metrics:
+      export:
+        enabled: true
