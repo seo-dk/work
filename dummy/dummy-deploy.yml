@@ -35,6 +35,7 @@ spec:
               value: "none"  # OTLP 메트릭 비활성화
             - name: OTEL_LOGS_EXPORTER
               value: "none"  # 로그 비활성화  
+              
         # - name: jaeger-agent
         #   image: jaegertracing/jaeger-agent:1.47.0
         #   ports:

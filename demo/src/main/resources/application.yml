@@ -27,7 +27,7 @@ management:
     sampling:
       probability: 1.0
 
-  prometheus:
-    metrics:
-      export:
-        enabled: true
+  # prometheus:
+  #   metrics:
+  #     export:
+  #       enabled: true
