@@ -43,7 +43,7 @@ public class MyController {
 
     @GetMapping("/call")
     public String callDummy() {
-        String response = restTemplate.getForObject("http://team8-dummy:80/hello", String.class);
+        String response = restTemplate.getForObject("http://http://192.168.100.221:30805/hello", String.class);
         return "Called Dummy: " + response;
     }
 }
