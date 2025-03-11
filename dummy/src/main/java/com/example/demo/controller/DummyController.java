@@ -12,10 +12,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 
-public class MyController {
+public class DummyController {
     @GetMapping("/hello")
     public String  getData() {
-        return "Hello, World!";
+        return "Hello, I am Dummy!";
     }
 }
 

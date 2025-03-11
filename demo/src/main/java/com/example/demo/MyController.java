@@ -46,5 +46,10 @@ public class MyController {
         String response = restTemplate.getForObject("http://192.168.100.221:30805/hello", String.class);
         return "Called Dummy: " + response;
     }
+
+    @GetMapping("/hello")
+    public String  helloData() {
+        return "Hello, I am Demo!";
+    }
 }
 
