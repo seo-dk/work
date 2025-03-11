@@ -21,6 +21,7 @@ spec:
         env:
         - name: SPAN_STORAGE_TYPE
           value: "memory"
+        
 ---
 apiVersion: v1
 kind: Service
