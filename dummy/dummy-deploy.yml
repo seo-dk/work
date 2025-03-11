@@ -26,11 +26,15 @@ spec:
             - name: OTEL_TRACES_EXPORTER
               value: "jaeger"
             - name: OTEL_EXPORTER_JAEGER_ENDPOINT
-              value: "http://team8-jaeger-collector:14268"
+              value: "http://team8-jaeger-collector:14268/api/traces"
             - name: OTEL_TRACES_SAMPLER
               value: "always_on"
             - name: OTEL_LOG_LEVEL
               value: "DEBUG"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"  # OTLP 메트릭 비활성화
+            - name: OTEL_LOGS_EXPORTER
+              value: "none"  # 로그 비활성화  
         # - name: jaeger-agent
         #   image: jaegertracing/jaeger-agent:1.47.0
         #   ports:
