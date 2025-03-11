@@ -32,7 +32,9 @@ spec:
         - name: JAEGER_SAMPLER_TYPE
           value: "const"
         - name: JAEGER_SAMPLER_PARAM
-          value: "1"            
+          value: "1"
+        - name: GRPC_MAX_MESSAGE_SIZE
+          value: "16777216"  # 16MB로 설정            
 ---
 apiVersion: v1
 kind: Service
