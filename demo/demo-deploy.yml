@@ -25,7 +25,7 @@ spec:
               value: "team8-demo"
             - name: OTEL_TRACES_EXPORTER
               value: "otlp"
-            - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: "http://team8-jaeger-collector:14250"
             - name: OTEL_EXPORTER_OTLP_PROTOCOL
               value: "grpc"
