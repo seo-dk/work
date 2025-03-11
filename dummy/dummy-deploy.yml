@@ -26,7 +26,7 @@ spec:
             - name: OTEL_TRACES_EXPORTER
               value: "jaeger"
             - name: OTEL_EXPORTER_JAEGER_ENDPOINT
-              value: "http://team8-jaeger-collector:14268/api/traces"
+              value: "http://team8-jaeger-collector:14268"
             - name: OTEL_TRACES_SAMPLER
               value: "always_on"
             - name: OTEL_LOG_LEVEL
