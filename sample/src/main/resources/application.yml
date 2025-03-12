@@ -13,9 +13,12 @@ management:
     sampling:
       probability: 1.0
 
-opentelemetry:
-  jaeger:
-    endpoint: http://team8-jaeger-collector:14250
+otel:
+  traces:
+    exporter: jaeger
+  exporter:
+    jaeger:
+      endpoint: http://team8-jaeger-collector:14250
 
 logging:
   pattern:
