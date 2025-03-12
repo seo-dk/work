@@ -21,4 +21,7 @@ opentelemetry:
 
 logging:
   pattern:
-    level: "%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]"      
+    level: "%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]"
+  level:
+      io.opentelemetry: DEBUG  # OpenTelemetry 디버깅 로그 활성화
+      org.springframework.boot.actuate: DEBUG  # Actuator 디버깅 로그 활성화
