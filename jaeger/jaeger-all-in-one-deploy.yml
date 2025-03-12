@@ -27,6 +27,8 @@ spec:
         env:
         - name: SPAN_STORAGE_TYPE
           value: "memory"
+        - name: COLLECTOR_OTLP_ENABLED
+          value: "true"          
         #   value: "elasticsearch"
         # - name: ES_SERVER_URLS
         #   value: "http://team8-elasticsearch:9200"
