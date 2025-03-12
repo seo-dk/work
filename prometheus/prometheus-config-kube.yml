@@ -6,8 +6,8 @@ metadata:
 data:
   prometheus.yml: |
     global:
-      scrape_interval: 5s
-      evaluation_interval: 5s
+      scrape_interval: 15s  # 필요에 따라 조정
+      evaluation_interval: 15s
 
     scrape_configs:
       - job_name: 'kubernetes-services'
@@ -15,8 +15,7 @@ data:
           - role: service
             namespaces:
               names:
-                - group1-team8  # team8이 속한 네임스페이스 지정
-
+                - group1-team8
         relabel_configs:
           - source_labels: [__meta_kubernetes_service_name]
             regex: "team8-(accounts|loans|cards|gatewayserver|eureka|configserver|jaeger-collector)"
@@ -26,14 +25,13 @@ data:
             action: keep
           - source_labels: [__meta_kubernetes_service_name]
             target_label: job
-          
+
       - job_name: 'kubernetes-pods'
         kubernetes_sd_configs:
           - role: pod
             namespaces:
               names:
                 - group1-team8
-
         relabel_configs:
           - source_labels: [__meta_kubernetes_pod_label_app]
             regex: "team8-(accounts|loans|cards|gatewayserver|eureka|configserver|jaeger-collector)"
