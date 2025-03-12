@@ -6,38 +6,44 @@ metadata:
 data:
   prometheus.yml: |
     global:
-      scrape_interval: 15s  # 필요에 따라 조정
-      evaluation_interval: 15s
-
+      scrape_interval: 5s
+      evaluation_interval: 5s
+      
     scrape_configs:
-      - job_name: 'kubernetes-services'
-        kubernetes_sd_configs:
-          - role: service
-            namespaces:
-              names:
-                - group1-team8
-        relabel_configs:
-          - source_labels: [__meta_kubernetes_service_name]
-            regex: "team8-(accounts|loans|cards|gatewayserver|eureka|configserver|jaeger-collector)"
-            action: keep
-          - source_labels: [__meta_kubernetes_service_port_name]
-            regex: "http|metrics"
-            action: keep
-          - source_labels: [__meta_kubernetes_service_name]
-            target_label: job
+      - job_name: 'accounts'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: [ 'team8-accounts:80' ]
+      - job_name: 'loans'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: [ 'team8-loans:80' ]
+      - job_name: 'cards'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: [ 'team8-cards:80' ]
+      - job_name: 'gatewayserver'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: [ 'team8-gatewayserver:80' ]
+      - job_name: 'eurekaserver'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: [ 'team8-eureka:80' ]
+      - job_name: 'configserver'
+        metrics_path: '/actuator/prometheus'
+        static_configs:
+          - targets: [ 'team8-configserver:8888' ]
+      - job_name: 'jaeger-collector'
+        metrics_path: /metrics
+        static_configs:
+        - targets: [ 'team8-jaeger-collector:14269' ]
 
-      - job_name: 'kubernetes-pods'
-        kubernetes_sd_configs:
-          - role: pod
-            namespaces:
-              names:
-                - group1-team8
-        relabel_configs:
-          - source_labels: [__meta_kubernetes_pod_label_app]
-            regex: "team8-(accounts|loans|cards|gatewayserver|eureka|configserver|jaeger-collector)"
-            action: keep
-          - source_labels: [__meta_kubernetes_pod_container_port_name]
-            regex: "http|metrics"
-            action: keep
-          - source_labels: [__meta_kubernetes_pod_name]
-            target_label: job
+      # - job_name: 'kubernetes-nodes'
+      #   static_configs:
+      #   - targets:
+      #     - 192.168.100.222:10250
+      #     - 192.168.100.223:10250
+      #   scheme: https
+      #   tls_config:
+      #     insecure_skip_verify: true

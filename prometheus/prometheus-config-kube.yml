@@ -41,3 +41,7 @@ data:
             action: keep
           - source_labels: [__meta_kubernetes_pod_name]
             target_label: job
+
+#Kubernetes에서는 기본적으로 서비스 어카운트(ServiceAccount)에 리소스 접근 권한이 부여되지 않습니다. 
+#group1-team8 네임스페이스의 default 서비스 어카운트는 아무런 추가 권한 없이 사용되고 있으며, 
+#Prometheus가 동작하려면 최소한 pods와 services 리소스에 대한 list와 watch 권한이 필요합니다.
