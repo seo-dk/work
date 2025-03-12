@@ -21,12 +21,16 @@ spec:
           ports:
             - containerPort: 8080
           env:
-          - name: OTEL_SERVICE_NAME
-            value: "team8-sample"
-          - name: OTEL_TRACES_SAMPLER
-            value: "always_on"
-          - name: OTEL_LOG_LEVEL
-            value: "DEBUG"            
+            - name: OTEL_SERVICE_NAME
+              value: "team8-sample"
+            - name: OTEL_TRACES_EXPORTER
+              value: "jaeger"
+            - name: OTEL_EXPORTER_JAEGER_ENDPOINT
+              value: "http://team8-jaeger-collector:14250"
+            - name: OTEL_TRACES_SAMPLER
+              value: "always_on"
+            - name: OTEL_LOG_LEVEL
+              value: "DEBUG"            
 ---
 apiVersion: v1
 kind: Service
