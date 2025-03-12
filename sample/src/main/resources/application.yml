@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: team8-sample
+
+management:
+  endpoints:
+      web:
+        exposure:
+          include: "*"
+  otlp:
+    tracing:
+      endpoint: http://team8-jaeger-collector:14268/api/traces
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]"      

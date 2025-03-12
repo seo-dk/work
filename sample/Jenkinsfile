@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+    environment {
+        REGISTRY = "k8s-vga-worker1:5000"
+        IMAGE_NAME = "team8-sample"
+        IMAGE_TAG = "latest"
+        NAMESPACE = "group1-team8"
+        JAVA_HOME = "/tmp/jdk-21.0.5"
+        PATH = "${JAVA_HOME}/bin:${PATH}"
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                // Git 저장소에서 소스 코드 체크아웃 (branch 지정 : 본인 repository의 branch 이름으로 설정)
+                git branch: 'main', url: 'https://github.com/seo-dk/work.git'
+            }
+        }
+        stage('Build with Gradle') {
+            steps {
+                script {
+                    sh 'cd sample && mvn clean package -DskipTests'
+                }
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ./sample"
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Docker 이미지를 Registry Server에 푸시
+                    sh "docker push ${REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+        stage('Deploy and Service to Kubernetes') {
+            steps {
+                script {
+                    // Kubernetes Deployment and Service 생성 및 적용 (1일차 교육때 사용한 deploy & service 생성 yaml 파일 등록하여 사용)
+                    try {sh "kubectl delete -f ./sample/sample-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./sample/sample-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                }
+            }
+        }        
+    }
+}
