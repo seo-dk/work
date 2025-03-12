@@ -16,7 +16,7 @@ public class SmapleController {
 
     private final RestTemplate restTemplate;
  
-    public SmapleController(RestTemplate restTemplate) {
+    public SmapleController(RestTemplate restTemplate, Tracer tracer) {
         this.restTemplate = restTemplate;
     }
     
