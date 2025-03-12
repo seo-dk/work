@@ -20,6 +20,7 @@ spec:
         image: jaegertracing/all-in-one:1.47.0
         imagePullPolicy: IfNotPresent
         ports:
+        - containerPort: 4318 # OTLP HTTP 포트
         - containerPort: 16686 # UI
         - containerPort: 14250 # gRPC 기반 Collector 수신 포트 (애플리케이션에서 Collector로 직접 데이터 전송)
         - containerPort: 14268 # HTTP 기반 Collector 수신 포트 (애플리케이션에서 Collector로 직접 데이터 전송)
