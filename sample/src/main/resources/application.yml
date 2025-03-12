@@ -10,19 +10,13 @@ management:
 
   tracing:
     enabled: true
-    propagation:
-      type: B3
     sampling:
       probability: 1.0
 
 opentelemetry:
   jaeger:
-    endpoint: http://team8-jaeger-collector:14268/api/traces
+    endpoint: http://team8-jaeger-collector:14250
 
 logging:
   pattern:
     level: "%5p [${spring.application.name},%X{traceId:-},%X{spanId:-}]"
-  level:
-    io.opentelemetry: DEBUG  # OpenTelemetry 디버깅 로그 활성화
-    org.springframework.boot.actuate: DEBUG  # Actuator 디버깅 로그 활성화
-    io.micrometer: DEBUG
