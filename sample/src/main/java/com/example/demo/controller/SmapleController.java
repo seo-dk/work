@@ -24,8 +24,10 @@ public class SmapleController {
     public String  getData() {
         return "Hello, I am samsple!";
     }
+
+    @GetMapping("/call")
+    public String callDummy() {
+        String response = restTemplate.getForObject("http://192.168.100.221:30805/api/call", String.class);
+        return "Called Smaple -> " + response;
+    }
 }
-
-
-
-

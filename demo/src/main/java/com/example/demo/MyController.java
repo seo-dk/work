@@ -41,15 +41,11 @@ public class MyController {
         return "모든 데이터가 삭제되었습니다.";
     }
 
-    @GetMapping("/call")
-    public String callDummy() {
-        String response = restTemplate.getForObject("http://192.168.100.221:30805/api/call", String.class);
-        return "Called Demo -> " + response;
-    }
-
     @GetMapping("/hello")
     public String  helloData() {
-        return "Hello, I am Demo!";
+        MyEntity entity = new MyEntity("team8-edu-Data");
+        entity.setId(System.currentTimeMillis());  // ID를 현재 시간으로 설정
+        return "Hello, I am Demo! Let me add the data!";
     }
 }
 
