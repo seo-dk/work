@@ -43,8 +43,16 @@ public class MyController {
 
     @GetMapping("/call")
     public String callDummy() {
-        String response = restTemplate.getForObject("http://192.168.100.221:30805/api/hello", String.class);
-        return "Called Dummy: " + response;
+
+        String response;
+
+        if (Math.random() > 0.5) {
+            response = restTemplate.getForObject("http://192.168.100.221:30805/api/hello", String.class);
+        }else{
+            response = restTemplate.getForObject("http://192.168.100.221:30806/api/hello", String.class);
+        }
+        
+        return "Called Demo: " + response;
     }
 
     @GetMapping("/hello")
