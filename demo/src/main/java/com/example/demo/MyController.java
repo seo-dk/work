@@ -44,7 +44,7 @@ public class MyController {
     @GetMapping("/call")
     public String callDummy() {
         String response = restTemplate.getForObject("http://192.168.100.221:30805/api/call", String.class);
-        return "Called Demo: " + response;
+        return "Called Demo -> " + response;
     }
 
     @GetMapping("/hello")
