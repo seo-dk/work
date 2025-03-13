@@ -8,16 +8,16 @@ default:
     - cloud_group_runner
 
 variables:    
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
-    REGISTRY: "k8s-vga-worker1:5000"
-    NAMESPACE: "group1-team8"
-    LOANS_IMAGE_NAME: "team8-loans"
-    IMAGE_TAG: "latest"
-    YAML_LOANS_DEPLOYMENT: "loans-deploy.yml"
-    LOANS_DEPLOYMENT_NAME: "team8-loans-deployment"
-    LOANS_PROJ_DIR: "loans"
+    DOCKER_HOST_8: tcp://docker:2375
+    DOCKER_DRIVER_8: overlay2
+    DOCKER_TLS_CERTDIR_8: ""
+    REGISTR_8: "k8s-vga-worker1:5000"
+    NAMESPACE_8: "group1-team8"
+    LOANS_IMAGE_NAME_8: "team8-loans"
+    IMAGE_TAG_8: "latest"
+    YAML_LOANS_DEPLOYMENT_8: "loans-deploy.yml"
+    LOANS_DEPLOYMENT_NAME_8: "team8-loans-deployment"
+    LOANS_PROJ_DIR_8: "loans"
 
 services:
   - name: docker:20.10.7-dind
@@ -27,26 +27,26 @@ loan_build_team8:
   stage: build
   image: maven:3.9.6-eclipse-temurin-21  # Maven 빌드를 위한 이미지
   script:
-    - mvn clean install -DskipTests -f ${LOANS_PROJ_DIR}/pom.xml
+    - mvn clean install -DskipTests -f ${LOANS_PROJ_DIR_8}/pom.xml
   artifacts:
     paths:
-      - ${LOANS_PROJ_DIR}/target/
+      - ${LOANS_PROJ_DIR_8}/target/
     expire_in: 30m
   rules:
     - changes:
-        - ${LOANS_PROJ_DIR}/*
+        - ${LOANS_PROJ_DIR_8}/*
 
 loan_docker_team8:
   stage: docker
   image: docker:20.10.7
   script:
     - echo "Building Docker image..."
-    - docker build -t ${REGISTRY}/${LOANS_IMAGE_NAME}:${IMAGE_TAG} ${LOANS_PROJ_DIR}
+    - docker build -t ${REGISTRY_8}/${LOANS_IMAGE_NAME_8}:${IMAGE_TAG_8} ${LOANS_PROJ_DIR_8}
     - echo "Pushing Docker image..."
-    - docker push ${REGISTRY}/${LOANS_IMAGE_NAME}:${IMAGE_TAG}
+    - docker push ${REGISTRY_8}/${LOANS_IMAGE_NAME_8}:${IMAGE_TAG_8}
   rules:
     - changes:
-        - ${LOANS_PROJ_DIR}/*
+        - ${LOANS_PROJ_DIR_8}/*
 
 loan_deploy_team8:
   stage: deploy
@@ -60,9 +60,9 @@ loan_deploy_team8:
     - chmod 400 ~/.kube/config
   script:
     - echo "Deploying to Kubernetes..."
-    - kubectl delete -f ${LOANS_PROJ_DIR}/${YAML_LOANS_DEPLOYMENT} -n $NAMESPACE || true
-    - kubectl apply -f ${LOANS_PROJ_DIR}/${YAML_LOANS_DEPLOYMENT} -n $NAMESPACE
-    - kubectl rollout status deployment/${LOANS_DEPLOYMENT_NAME} -n $NAMESPACE --timeout=120s # 배포 상태 확인, 타임아웃 설
+    - kubectl delete -f ${LOANS_PROJ_DIR_8}/${YAML_LOANS_DEPLOYMENT_8} -n $NAMESPACE_8 || true
+    - kubectl apply -f ${LOANS_PROJ_DIR_8}/${YAML_LOANS_DEPLOYMENT_8} -n $NAMESPACE_8
+    - kubectl rollout status deployment/${LOANS_DEPLOYMENT_NAME_8} -n $NAMESPACE_8 --timeout=120s # 배포 상태 확인, 타임아웃 설
   needs:
     - job: eureka_deploy_team8
   rules:

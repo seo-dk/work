@@ -8,16 +8,16 @@ default:
     - cloud_group_runner
 
 variables:    
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
-    REGISTRY: "k8s-vga-worker1:5000"
-    NAMESPACE: "group1-team8"
-    ACCOUNTS_IMAGE_NAME: "team8-accounts"
-    IMAGE_TAG: "latest"
-    YAML_ACCOUNTS_DEPLOYMENT: "accounts-deploy.yml"
-    ACCOUNTS_DEPLOYMENT_NAME: "team8-accounts-deployment"
-    ACCOUNTS_PROJ_DIR: "accounts"
+    DOCKER_HOST_8: tcp://docker:2375
+    DOCKER_DRIVER_8: overlay2
+    DOCKER_TLS_CERTDIR_8: ""
+    REGISTRY_8: "k8s-vga-worker1:5000"
+    NAMESPACE_8: "group1-team8"
+    ACCOUNTS_IMAGE_NAME_8: "team8-accounts"
+    IMAGE_TAG_8: "latest"
+    YAML_ACCOUNTS_DEPLOYMENT_8: "accounts-deploy.yml"
+    ACCOUNTS_DEPLOYMENT_NAME_8: "team8-accounts-deployment"
+    ACCOUNTS_PROJ_DIR_8: "accounts"
 
 services:
   - name: docker:20.10.7-dind
@@ -27,10 +27,10 @@ account_build_team8:
   stage: build
   image: maven:3.9.6-eclipse-temurin-21  # Maven 빌드를 위한 이미지
   script:
-    - mvn clean install -DskipTests -f ${ACCOUNTS_PROJ_DIR}/pom.xml
+    - mvn clean install -DskipTests -f ${ACCOUNTS_PROJ_DIR_8}/pom.xml
   artifacts:
     paths:
-      - ${ACCOUNTS_PROJ_DIR}/target/
+      - ${ACCOUNTS_PROJ_DIR_8}/target/
     expire_in: 30m
 
 
@@ -39,9 +39,9 @@ account_docker_team8:
   image: docker:20.10.7
   script:
     - echo "Building Docker image..."
-    - docker build -t ${REGISTRY}/${ACCOUNTS_IMAGE_NAME}:${IMAGE_TAG} ${ACCOUNTS_PROJ_DIR}
+    - docker build -t ${REGISTRY_8}/${ACCOUNTS_IMAGE_NAME_8}:${IMAGE_TAG_8} ${ACCOUNTS_PROJ_DIR_8}
     - echo "Pushing Docker image..."
-    - docker push ${REGISTRY}/${ACCOUNTS_IMAGE_NAME}:${IMAGE_TAG}
+    - docker push ${REGISTRY_8}/${ACCOUNTS_IMAGE_NAME_8}:${IMAGE_TAG_8}
 
 
 account_deploy_team8:
@@ -56,7 +56,7 @@ account_deploy_team8:
     - chmod 400 ~/.kube/config
   script:
     - echo "Deploying to Kubernetes..."
-    - kubectl delete -f ${ACCOUNTS_PROJ_DIR}/${YAML_ACCOUNTS_DEPLOYMENT} -n $NAMESPACE || true
-    - kubectl apply -f ${ACCOUNTS_PROJ_DIR}/${YAML_ACCOUNTS_DEPLOYMENT} -n $NAMESPACE
-    - kubectl rollout status deployment/${ACCOUNTS_DEPLOYMENT_NAME} -n $NAMESPACE --timeout=120s # 배포 상태 확인, 타임아웃 설
+    - kubectl delete -f ${ACCOUNTS_PROJ_DIR_8}/${YAML_ACCOUNTS_DEPLOYMENT_8} -n $NAMESPACE_8 || true
+    - kubectl apply -f ${ACCOUNTS_PROJ_DIR_8}/${YAML_ACCOUNTS_DEPLOYMENT_8} -n $NAMESPACE_8
+    - kubectl rollout status deployment/${ACCOUNTS_DEPLOYMENT_NAME_8} -n $NAMESPACE_8 --timeout=120s # 배포 상태 확인, 타임아웃 설
 
