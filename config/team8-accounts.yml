@@ -64,7 +64,3 @@ resilience4j.circuitbreaker:
         slowCallDurationThreshold: 2000  # 2초 이상 걸리면 slow call로 판단
         minimumNumberOfCalls: 4    # 최소 4개의 요청이 있어야 통계 계산 시작
         slidingWindowSize: 6       # 최근 6개의 요청 기준으로 실패율 계산
-
-logging:
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n%X{X-B3-TraceId} %X{X-B3-SpanId}"
