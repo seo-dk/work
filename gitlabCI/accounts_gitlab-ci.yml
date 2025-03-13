@@ -16,7 +16,7 @@ variables:
     ACCOUNTS_IMAGE_NAME_8: "team8-accounts"
     IMAGE_TAG_8: "latest"
     YAML_ACCOUNTS_DEPLOYMENT_8: "accounts-deploy.yml"
-    ACCOUNTS_DEPLOYMENT_NAME_8: "team8-accounts-deployment"
+    ACCOUNTS_DEPLOYMENT_NAME_8: "team8-accounts"
     ACCOUNTS_PROJ_DIR_8: "accounts"
 
 services:

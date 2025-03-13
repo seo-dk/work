@@ -16,7 +16,7 @@ variables:
     LOANS_IMAGE_NAME_8: "team8-loans"
     IMAGE_TAG_8: "latest"
     YAML_LOANS_DEPLOYMENT_8: "loans-deploy.yml"
-    LOANS_DEPLOYMENT_NAME_8: "team8-loans-deployment"
+    LOANS_DEPLOYMENT_NAME_8: "team8-loans"
     LOANS_PROJ_DIR_8: "loans"
 
 services:
