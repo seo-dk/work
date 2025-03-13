@@ -18,7 +18,7 @@ checkout:
 include:
   - local: 'configserver/.gitlab-ci.yml'
   - local: 'eurekaserver/.gitlab-ci.yml'
- # - local: 'gatewayserver/.gitlab-ci.yml'
- # - local: 'accounts/.gitlab-ci.yml'
- # - local: 'cards/.gitlab-ci.yml'
- # - local: 'loans/.gitlab-ci.yml'
+  - local: 'gatewayserver/.gitlab-ci.yml'
+  - local: 'accounts/.gitlab-ci.yml'
+  - local: 'cards/.gitlab-ci.yml'
+  - local: 'loans/.gitlab-ci.yml'

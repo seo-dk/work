@@ -8,13 +8,13 @@ default:
     - cloud_group_runner
 
 variables:    
-    DOCKER_HOST: tcp://docker:2375
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
-    REGISTRY: "k8s-vga-worker1:5000"
+    DOCKER_HOST_8: tcp://docker:2375
+    DOCKER_DRIVER_8: overlay2
+    DOCKER_TLS_CERTDIR_8: ""
+    REGISTRY_8: "k8s-vga-worker1:5000"
     NAMESPACE_8: "group1-team8"
     EUREKASERVER_IMAGE_NAME_8: "team8-eureka"
-    IMAGE_TAG: "latest"
+    IMAGE_TAG_8: "latest"
     YAML_EUREKASERVER_DEPLOYMENT_8: "eureka-deploy.yml"
     EUREKASERVER_DEPLOYMENT_NAME_8: "team8-eureka"
     EUREKASERVER_PROJ_DIR_8: "eurekaserver"
@@ -38,9 +38,9 @@ eureka_docker_team8:
   image: docker:20.10.7
   script:
     - echo "Building Docker image..."
-    - docker build -t ${REGISTRY}/${EUREKASERVER_IMAGE_NAME_8}:${IMAGE_TAG} ${EUREKASERVER_PROJ_DIR_8}
+    - docker build -t ${REGISTRY_8}/${EUREKASERVER_IMAGE_NAME_8}:${IMAGE_TAG_8} ${EUREKASERVER_PROJ_DIR_8}
     - echo "Pushing Docker image..."
-    - docker push ${REGISTRY}/${EUREKASERVER_IMAGE_NAME_8}:${IMAGE_TAG}
+    - docker push ${REGISTRY_8}/${EUREKASERVER_IMAGE_NAME_8}:${IMAGE_TAG_8}
 
 eureka_deploy_team8:
   stage: deploy
