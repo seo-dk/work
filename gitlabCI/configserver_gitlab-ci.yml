@@ -1,0 +1,59 @@
+stages:
+  - build
+  - docker
+  - deploy
+
+default:
+  tags:
+    - cloud_group_runner
+
+variables:    
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    REGISTRY: "k8s-vga-worker1:5000"
+    NAMESPACE: "group1-team8"
+    CONFIGSERVER_IMAGE_NAME: "team8-configserver"
+    IMAGE_TAG: "latest"
+    YAML_CONFIGSERVER_DEPLOYMENT: "configserver-deploy.yml"
+    CONFIGSERVER_DEPLOYMENT_NAME: "team8-configserver"
+    CONFIGSERVER_PROJ_DIR: "configserver"
+
+services:
+  - name: docker:20.10.7-dind
+    command: [ "--tls=false" , "--insecure-registry=k8s-vga-worker1:5000"]
+
+configserver_build_team8:
+  stage: build
+  image: maven:3.9.6-eclipse-temurin-21  # Maven 빌드를 위한 이미지
+  script:
+    - mvn clean install -DskipTests -f ${CONFIGSERVER_PROJ_DIR_8}/pom.xml
+  artifacts:
+    paths:
+      - ${CONFIGSERVER_PROJ_DIR_8}/target/
+    expire_in: 10m
+
+configserver_docker_team8:
+  stage: docker
+  image: docker:20.10.7
+  script:
+    - echo "Building Docker image..."
+    - docker build -t ${REGISTRY}/${CONFIGSERVER_IMAGE_NAME_8}:${IMAGE_TAG} ${CONFIGSERVER_PROJ_DIR_8}
+    - echo "Pushing Docker image..."
+    - docker push ${REGISTRY}/${CONFIGSERVER_IMAGE_NAME_8}:${IMAGE_TAG}
+
+configserver_deploy_team8:
+  stage: deploy
+  image: 
+      #name: docker.io/lachlanevenson/k8s-kubectl:latest
+      name: bitnami/kubectl:latest
+      entrypoint: [""]
+  before_script:
+    - mkdir -p ~/.kube
+    - echo "$KUBE_CONFIG" | base64 -d > ~/.kube/config  # base64 디코딩하여 저장
+    - chmod 400 ~/.kube/config
+  script:
+    - echo "Deploying to Kubernetes..."
+    - kubectl delete -f ${CONFIGSERVER_PROJ_DIR_8}/${YAML_CONFIGSERVER_DEPLOYMENT_8} -n $NAMESPACE_8 || true
+    - kubectl apply -f ${CONFIGSERVER_PROJ_DIR_8}/${YAML_CONFIGSERVER_DEPLOYMENT_8} -n $NAMESPACE_8
+    - kubectl rollout status deployment/${CONFIGSERVER_DEPLOYMENT_NAME_8} -n $NAMESPACE_8 --timeout=120s # 배포 상태 확인, 타임아웃 설
