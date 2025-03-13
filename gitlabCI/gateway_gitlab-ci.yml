@@ -27,28 +27,28 @@ gateway_build_team8:
   stage: build
   image: maven:3.9.6-eclipse-temurin-21  # Maven 빌드를 위한 이미지
   script:
-    - mvn clean install -DskipTests -f ${GATEWAYSERVER_PROJ_DIR}/pom.xml
+    - mvn clean install -DskipTests -f ${GATEWAYSERVER_PROJ_DIR_8}/pom.xml
   artifacts:
     paths:
-      - ${GATEWAYSERVER_PROJ_DIR}/target/
+      - ${GATEWAYSERVER_PROJ_DIR_8}/target/
     expire_in: 10m
   needs:
     - job: checkout
   rules:
     - changes:
-        - ${GATEWAYSERVER_PROJ_DIR}/*
+        - ${GATEWAYSERVER_PROJ_DIR_8}/*
 
 gateway_docker_team8:
   stage: docker
   image: docker:20.10.7
   script:
     - echo "Building Docker image..."
-    - docker build -t ${REGISTRY}/${GATEWAYSERVER_IMAGE_NAME}:${IMAGE_TAG} ${GATEWAYSERVER_PROJ_DIR}
+    - docker build -t ${REGISTRY_8}/${GATEWAYSERVER_IMAGE_NAME_8}:${IMAGE_TAG_8} ${GATEWAYSERVER_PROJ_DIR_8}
     - echo "Pushing Docker image..."
-    - docker push ${REGISTRY}/${GATEWAYSERVER_IMAGE_NAME}:${IMAGE_TAG}
+    - docker push ${REGISTRY_8}/${GATEWAYSERVER_IMAGE_NAME_8}:${IMAGE_TAG_8}
   rules:
     - changes:
-        - ${GATEWAYSERVER_PROJ_DIR}/*
+        - ${GATEWAYSERVER_PROJ_DIR_8}/*
 
 gateway_deploy_team8:
   stage: deploy
@@ -62,11 +62,11 @@ gateway_deploy_team8:
     - chmod 400 ~/.kube/config
   script:
     - echo "Deploying to Kubernetes..."
-    - kubectl delete -f ${GATEWAYSERVER_PROJ_DIR}/${YAML_GATEWAYSERVER_DEPLOYMENT} -n $NAMESPACE || true
-    - kubectl apply -f ${GATEWAYSERVER_PROJ_DIR}/${YAML_GATEWAYSERVER_DEPLOYMENT} -n $NAMESPACE
-    - kubectl rollout status deployment/${GATEWAYSERVER_DEPLOYMENT_NAME} -n $NAMESPACE --timeout=120s # 배포 상태 확인, 타임아웃 설
+    - kubectl delete -f ${GATEWAYSERVER_PROJ_DIR_8}/${YAML_GATEWAYSERVER_DEPLOYMENT_8} -n $NAMESPACE_8 || true
+    - kubectl apply -f ${GATEWAYSERVER_PROJ_DIR_8}/${YAML_GATEWAYSERVER_DEPLOYMENT_8} -n $NAMESPACE_8
+    - kubectl rollout status deployment/${GATEWAYSERVER_DEPLOYMENT_NAME_8} -n $NAMESPACE_8 --timeout=120s # 배포 상태 확인, 타임아웃 설
   needs:
     - job: eureka_deploy_team8
   rules:
     - changes:
-        - ${GATEWAYSERVER_PROJ_DIR}/*
+        - ${GATEWAYSERVER_PROJ_DIR_8}/*
