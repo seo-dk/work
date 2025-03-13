@@ -34,10 +34,10 @@ data:
         metrics_path: '/actuator/prometheus'
         static_configs:
           - targets: [ 'team8-configserver:8888' ]
-      - job_name: 'jaeger-collector'
-        metrics_path: /metrics
-        static_configs:
-          - targets: [ 'team8-jaeger-collector:14269' ]
+      # - job_name: 'jaeger-collector'
+      #   metrics_path: /metrics
+      #   static_configs:
+      #     - targets: [ 'team8-jaeger-collector:14269' ]
 
       # - job_name: 'kubernetes-nodes'
       #   static_configs:
