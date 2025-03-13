@@ -41,10 +41,8 @@ pipeline {
             steps {
                 script {
                     // Kubernetes Deployment and Service 생성 및 적용 (1일차 교육때 사용한 deploy & service 생성 yaml 파일 등록하여 사용)
-                    sh "kubectl delete -f ./demo/demo-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./demo/demo-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl delete -f ./demo/demo-service.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./demo/demo-service.yaml -n ${NAMESPACE}"
+                    try {sh "kubectl delete -f ./demo/demo-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./demo/demo-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                 }
             }
         }        

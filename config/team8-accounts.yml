@@ -1,10 +1,24 @@
 # Team8 Accounts 서비스에 대한 개별 설정
 server:
-  port: 9020  # Accounts 서비스의 기본 포트
+  port: 8080  # Accounts 서비스의 기본 포트
 
 spring:
   application:
     name: team8-accounts  # 서비스 이름 정의
+
+  rabbitmq:
+    host: team8-rabbitmq    # RabbitMQ 서버 주소
+    port: 5672              # 기본 포트
+    username: guest         # RabbitMQ 사용자 이름
+    password: guest         # RabbitMQ 비밀번호
+    virtual-host: /         # 기본 가상 호스트 (옵션)
+    template:
+      exchange: account-service-exchange   # Exchange 이름
+      routing-key: account-service-routing-key  # Routing key
+    listener:
+      simple:
+        concurrency: 3      # 소비자 수
+        max-concurrency: 10 # 최대 소비자 수
 
   datasource:
     url: jdbc:h2:mem:testdb  # H2 인메모리 데이터베이스 사용

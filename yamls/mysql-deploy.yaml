@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: group1-team8
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      initContainers:  # 기존 데이터 삭제하는 initContainer 추가
+      - name: init-mysql
+        image: mysql:8.0.26
+        command: ["sh", "-c", "rm -rf /var/lib/mysql/*"]
+        volumeMounts:
+        - name: volume1
+          mountPath: /var/lib/mysql
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        volumeMounts:
+        - name: volume1
+          mountPath: /var/lib/mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "root"
+        - name: MYSQL_USER
+          value: "team8"
+        - name: MYSQL_PASSWORD
+          value: "1234"
+        - name: MYSQL_DATABASE
+          value: "team8db"
+        ports:
+        - containerPort: 3306
+      volumes:
+      - name: volume1
+        persistentVolumeClaim:
+          claimName: team8-mysql-pvc

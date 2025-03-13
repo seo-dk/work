@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: team8-jaeger-query
+  namespace: group1-team8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: team8-jaeger-query
+  template:
+    metadata:
+      labels:
+        app: team8-jaeger-query
+    spec:
+      containers:
+      - name: team8-jaeger-query
+        image: jaegertracing/jaeger-query:1.47.0
+        ports:
+        - containerPort: 16686
+        env:
+        - name: SPAN_STORAGE_TYPE
+          value: "memory"
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: team8-jaeger-query
+  namespace: group1-team8
+spec:
+  type: NodePort
+  selector:
+    app: team8-jaeger-query
+  ports:
+    - name: jaeger-ui
+      port: 16686
+      targetPort: 16686
+      nodePort: 30870

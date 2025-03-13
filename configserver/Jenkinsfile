@@ -38,9 +38,8 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
-                    sh "kubectl delete -f ./configserver/configserver-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./configserver/configserver-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./configserver/configserver-service.yaml -n ${NAMESPACE}"
+                    try {sh "kubectl delete -f ./configserver/configserver-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./configserver/configserver-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                 }
             }
         }

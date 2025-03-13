@@ -7,6 +7,14 @@ spring:
         max-attempts: 5  # Config Server 연결 실패 시 최대 5번까지 재시도
 
 management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://team8-zipkin:9411/api/v2/spans
+
   endpoints:
     web:
       exposure:
@@ -21,4 +29,10 @@ management:
     health:
       show-details: always
       probes:
+        enabled: true    
+          
+  metrics:
+    export:
+      prometheus:
         enabled: true
+

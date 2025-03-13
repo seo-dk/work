@@ -29,6 +29,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import io.opentelemetry.api.trace.Tracer;
+
 /**
  * @author Eazy Bytes
  */
@@ -46,6 +48,7 @@ public class AccountsController {
     private IAccountsService iAccountsService;
     private IAccountsMerge iAccountsMerge;
     private IRabbitMqProducer iRabbitMqProducer;
+    private Tracer tracer;
 
     @Operation(
             summary = "Create Account REST API",
@@ -211,6 +214,7 @@ public class AccountsController {
 
     @GetMapping("/send")
     public String sendMessage(@RequestParam String message) {
+        tracer.spanBuilder("RabbitMQ-Producer").startSpan().end();
         iRabbitMqProducer.sendMessage(message);
         return "Message sent: " + message;
     }

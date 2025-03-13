@@ -10,10 +10,8 @@ pipeline {
         stage('Deploy and Service to Kubernetes') {
             steps {
                 script {
-                    //sh "kubectl delete -f ./rabbitmq/rabbitmq-deploy.yaml -n ${NAMESPACE}"
-                    //sh "kubectl delete -f ./rabbitmq/rabbitmq-service.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./rabbitmq/rabbitmq-deploy.yaml -n ${NAMESPACE}"
-                    sh "kubectl apply -f ./rabbitmq/rabbitmq-service.yaml -n ${NAMESPACE}"
+                    try {sh "kubectl delete -f ./rabbitmq/rabbitmq-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                    try {sh "kubectl apply -f ./rabbitmq/rabbitmq-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                   
                 }
             }
         }

@@ -11,3 +11,28 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry:  false
+
+management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://team8-zipkin:9411/api/v2/spans
+
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true      
+
+  prometheus:
+    metrics:
+      export:
+        enabled: true
