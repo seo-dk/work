@@ -5,12 +5,12 @@ stages:
 
 default:
   tags:
-    - cloud_group_runner
+    - team8_runner
 
 variables:    
-    DOCKER_HOST_8: tcp://docker:2375
-    DOCKER_DRIVER_8: overlay2
-    DOCKER_TLS_CERTDIR_8: ""
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
     REGISTRY_8: "k8s-vga-worker1:5000"
     NAMESPACE_8: "group1-team8"
     ACCOUNTS_IMAGE_NAME_8: "team8-accounts"

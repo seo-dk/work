@@ -6,7 +6,7 @@ stages:
 
 default:
   tags:
-    - cloud_group_runner
+    - team8_runner
 
 checkout:
   stage: checkout
