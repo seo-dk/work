@@ -5,7 +5,6 @@ server:
 spring:
   application:
     name: team8-accounts  # 서비스 이름 정의
-
   rabbitmq:
     host: team8-rabbitmq    # RabbitMQ 서버 주소
     port: 5672              # 기본 포트
@@ -35,19 +34,6 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true  # SQL 쿼리 출력 활성화
-
-eureka:
-  instance:
-    lease-renewal-interval-in-seconds: 10
-    lease-expiration-duration-in-seconds: 30
-    prefer-ip-address: true
-
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    registry-fetch-interval-seconds: 10
-    service-url:
-      defaultZone: http://team8-eureka:80/eureka/
 
 resilience4j.circuitbreaker:
   configs:
