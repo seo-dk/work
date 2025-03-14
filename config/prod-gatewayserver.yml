@@ -37,20 +37,6 @@ spring:
           filters:
             - StripPrefix=1  # /loans 제거 후 백엔드 서비스로 전달
 
-eureka:
-  instance:
-    lease-renewal-interval-in-seconds: 10
-    lease-expiration-duration-in-seconds: 30
-    prefer-ip-address: true
-    preferIpAddress: true
-
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    registry-fetch-interval-seconds: 10
-    service-url:
-      defaultZone: http://team8-eureka:80/eureka/
-
 management:
   endpoint:
     gateway:

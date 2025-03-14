@@ -6,6 +6,19 @@ spring:
       retry:
         max-attempts: 5  # Config Server 연결 실패 시 최대 5번까지 재시도
 
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    registry-fetch-interval-seconds: 10
+    service-url:
+      defaultZone: http://team8-eureka:80/eureka/       
+
 management:
   tracing:
     enabled: true
