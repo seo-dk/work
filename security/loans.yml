@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loans-deployment
+  namespace: group1-team8
+  labels:
+    app: loans
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loans
+  template:
+    metadata:
+      labels:
+        app: loans
+    spec:
+      containers:
+      - name: loans
+        image: eazybytes/loans:s12
+        ports:
+        - containerPort: 8090
+        envFrom:
+        - configMapRef:
+            name: eazybank-configmap
+        env:
+        - name: SPRING_APPLICATION_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: eazybank-configmap
+              key: LOANS_APPLICATION_NAME
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loans
+  namespace: group1-team8
+spec:
+  selector:
+    app: loans
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 8090
