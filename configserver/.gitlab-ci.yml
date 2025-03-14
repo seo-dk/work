@@ -32,6 +32,11 @@ configserver_build_team8:
     paths:
       - ${CONFIGSERVER_PROJ_DIR_8}/target/
     expire_in: 10m
+  needs:
+    - job: checkout
+  # rules:
+  #   - changes:
+  #       - ${CONFIGSERVER_PROJ_DIR_8}/*    
 
 configserver_docker_team8:
   stage: docker
@@ -41,11 +46,13 @@ configserver_docker_team8:
     - docker build -t ${REGISTRY_8}/${CONFIGSERVER_IMAGE_NAME_8}:${IMAGE_TAG_8} ${CONFIGSERVER_PROJ_DIR_8}
     - echo "Pushing Docker image..."
     - docker push ${REGISTRY_8}/${CONFIGSERVER_IMAGE_NAME_8}:${IMAGE_TAG_8}
+  # rules:
+  #   - changes:
+  #       - ${CONFIGSERVER_PROJ_DIR_8}/* 
 
 configserver_deploy_team8:
   stage: deploy
   image: 
-      #name: docker.io/lachlanevenson/k8s-kubectl:latest
       name: bitnami/kubectl:latest
       entrypoint: [""]
   before_script:
@@ -57,3 +64,6 @@ configserver_deploy_team8:
     - kubectl delete -f ${CONFIGSERVER_PROJ_DIR_8}/${YAML_CONFIGSERVER_DEPLOYMENT_8} -n $NAMESPACE_8 || true
     - kubectl apply -f ${CONFIGSERVER_PROJ_DIR_8}/${YAML_CONFIGSERVER_DEPLOYMENT_8} -n $NAMESPACE_8
     - kubectl rollout status deployment/${CONFIGSERVER_DEPLOYMENT_NAME_8} -n $NAMESPACE_8 --timeout=120s # 배포 상태 확인, 타임아웃 설
+  # rules:
+  #   - changes:
+  #       - ${CONFIGSERVER_PROJ_DIR_8}/*    

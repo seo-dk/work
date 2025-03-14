@@ -34,9 +34,9 @@ card_build_team8:
     expire_in: 30m
   needs:
     - job: checkout
-  rules:
-    - changes:
-        - ${CARDS_PROJ_DIR_8}/*
+  # rules:
+  #   - changes:
+  #       - ${CARDS_PROJ_DIR_8}/*
 
 card_docker_team8:
   stage: docker
@@ -46,9 +46,9 @@ card_docker_team8:
     - docker build -t ${REGISTRY_8}/${CARDS_IMAGE_NAME_8}:${IMAGE_TAG_8} ${CARDS_PROJ_DIR_8}
     - echo "Pushing Docker image..."
     - docker push ${REGISTRY_8}/${CARDS_IMAGE_NAME_8}:${IMAGE_TAG_8}
-  rules:
-    - changes:
-        - ${CARDS_PROJ_DIR_8}/*
+  # rules:
+  #   - changes:
+  #       - ${CARDS_PROJ_DIR_8}/*
 
 card_deploy_team8:
   stage: deploy
@@ -67,6 +67,6 @@ card_deploy_team8:
     - kubectl rollout status deployment/${CARDS_DEPLOYMENT_NAME_8} -n $NAMESPACE_8 --timeout=120s # 배포 상태 확인, 타임아웃 설
   needs:
     - job: eureka_deploy_team8
-  rules:
-    - changes:
-        - ${CARDS_PROJ_DIR_8}/*
+  # rules:
+  #   - changes:
+  #       - ${CARDS_PROJ_DIR_8}/*

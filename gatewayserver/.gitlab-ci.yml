@@ -34,9 +34,9 @@ gateway_build_team8:
     expire_in: 10m
   needs:
     - job: checkout
-  rules:
-    - changes:
-        - ${GATEWAYSERVER_PROJ_DIR_8}/*
+  # rules:
+  #   - changes:
+  #       - ${GATEWAYSERVER_PROJ_DIR_8}/*
 
 gateway_docker_team8:
   stage: docker
@@ -46,9 +46,9 @@ gateway_docker_team8:
     - docker build -t ${REGISTRY_8}/${GATEWAYSERVER_IMAGE_NAME_8}:${IMAGE_TAG_8} ${GATEWAYSERVER_PROJ_DIR_8}
     - echo "Pushing Docker image..."
     - docker push ${REGISTRY_8}/${GATEWAYSERVER_IMAGE_NAME_8}:${IMAGE_TAG_8}
-  rules:
-    - changes:
-        - ${GATEWAYSERVER_PROJ_DIR_8}/*
+  # rules:
+  #   - changes:
+  #       - ${GATEWAYSERVER_PROJ_DIR_8}/*
 
 gateway_deploy_team8:
   stage: deploy
@@ -67,6 +67,6 @@ gateway_deploy_team8:
     - kubectl rollout status deployment/${GATEWAYSERVER_DEPLOYMENT_NAME_8} -n $NAMESPACE_8 --timeout=120s # 배포 상태 확인, 타임아웃 설
   needs:
     - job: eureka_deploy_team8
-  rules:
-    - changes:
-        - ${GATEWAYSERVER_PROJ_DIR_8}/*
+  # rules:
+  #   - changes:
+  #       - ${GATEWAYSERVER_PROJ_DIR_8}/*

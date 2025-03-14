@@ -32,6 +32,11 @@ eureka_build_team8:
     paths:
       - ${EUREKASERVER_PROJ_DIR_8}/target/
     expire_in: 10m
+  needs:
+    - job: checkout
+  # rules:
+  #   - changes:
+  #       - ${EUREKASERVER_PROJ_DIR_8}/*
 
 eureka_docker_team8:
   stage: docker
@@ -41,6 +46,9 @@ eureka_docker_team8:
     - docker build -t ${REGISTRY_8}/${EUREKASERVER_IMAGE_NAME_8}:${IMAGE_TAG_8} ${EUREKASERVER_PROJ_DIR_8}
     - echo "Pushing Docker image..."
     - docker push ${REGISTRY_8}/${EUREKASERVER_IMAGE_NAME_8}:${IMAGE_TAG_8}
+  # rules:
+  #   - changes:
+  #       - ${EUREKASERVER_PROJ_DIR_8}/*
 
 eureka_deploy_team8:
   stage: deploy
@@ -57,4 +65,9 @@ eureka_deploy_team8:
     - kubectl delete -f ${EUREKASERVER_PROJ_DIR_8}/${YAML_EUREKASERVER_DEPLOYMENT_8} -n $NAMESPACE_8 || true
     - kubectl apply -f ${EUREKASERVER_PROJ_DIR_8}/${YAML_EUREKASERVER_DEPLOYMENT_8} -n $NAMESPACE_8
     - kubectl rollout status deployment/${EUREKASERVER_DEPLOYMENT_NAME_8} -n $NAMESPACE_8 --timeout=120s # 배포 상태 확인, 타임아웃 설정
+  needs:
+    - job: configserver_deploy_team8
+  # rules:
+  #   - changes:
+  #       - ${EUREKASERVER_PROJ_DIR_8}/*    
 
