@@ -32,6 +32,8 @@ loan_build_team8:
     paths:
       - ${LOANS_PROJ_DIR_8}/target/
     expire_in: 30m
+  needs:
+    - job: checkout   
   # rules:
   #   - changes:
   #       - ${LOANS_PROJ_DIR_8}/*
