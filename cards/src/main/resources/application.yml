@@ -1,5 +1,5 @@
 server:
-  port: 9000  # 기존 설정 유지 (9020)
+  port: 8080
 
 spring:
   application:

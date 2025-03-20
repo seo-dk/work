@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cards-deployment
+  namespace: group1-team8
+  labels:
+    app: cards
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cards
+  template:
+    metadata:
+      labels:
+        app: cards
+    spec:
+      containers:
+      - name: cards
+        image: eazybytes/cards:s12
+        ports:
+        - containerPort: 9000
+        envFrom:
+        - configMapRef:
+            name: eazybank-configmap
+        env:
+        - name: SPRING_APPLICATION_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: eazybank-configmap
+              key: CARDS_APPLICATION_NAME
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cards
+  namespace: group1-team8
+spec:
+  selector:
+    app: cards
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000

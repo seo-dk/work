@@ -1,0 +1,24 @@
+stages:
+  - checkout
+  - build
+  - docker
+  - deploy
+
+default:
+  tags:
+    - team8_runner
+
+checkout:
+  stage: checkout
+  image:
+    name: bitnami/git:latest
+  script:
+    - git clone -b main http://oauth2:$TEAM8_TOKEN@192.168.100.221/cloud-business-groups/team8-msa
+
+include:
+  - local: 'configserver/.gitlab-ci.yml'
+  - local: 'eurekaserver/.gitlab-ci.yml'
+  - local: 'gatewayserver/.gitlab-ci.yml'
+  - local: 'accounts/.gitlab-ci.yml'
+  - local: 'cards/.gitlab-ci.yml'
+  - local: 'loans/.gitlab-ci.yml'

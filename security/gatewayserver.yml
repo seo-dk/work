@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gatewayserver-deployment
+  namespace: group1-team8
+  labels:
+    app: gatewayserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gatewayserver
+  template:
+    metadata:
+      labels:
+        app: gatewayserver
+    spec:
+      containers:
+      - name: gatewayserver
+        image: eazybytes/gatewayserver:s12
+        ports:
+        - containerPort: 8072
+        envFrom:
+        - configMapRef:
+            name: eazybank-configmap  
+        env:
+        - name: SPRING_APPLICATION_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: eazybank-configmap
+              key: GATEWAY_APPLICATION_NAME
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gatewayserver
+  namespace: group1-team8
+spec:
+  selector:
+    app: gatewayserver
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8072
+      targetPort: 8072
+      nodePort: 30809

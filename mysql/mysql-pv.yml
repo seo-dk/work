@@ -1,0 +1,15 @@
+# mysql-pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: team8-mysql-pv
+spec:
+  volumeMode: Filesystem
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: "team8-mysql-storage"
+  hostPath:
+    path: "/DATA1/team8/mysql"

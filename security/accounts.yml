@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accounts-deployment
+  namespace: group1-team8
+  labels:
+    app: accounts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accounts
+  template:
+    metadata:
+      labels:
+        app: accounts
+    spec:
+      containers:
+      - name: accounts
+        image: eazybytes/accounts:s12
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - configMapRef:
+            name: eazybank-configmap  
+        env:
+        - name: SPRING_APPLICATION_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: eazybank-configmap
+              key: ACCOUNTS_APPLICATION_NAME
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: accounts
+  namespace: group1-team8
+spec:
+  selector:
+    app: accounts
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
