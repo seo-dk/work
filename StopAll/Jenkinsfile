@@ -16,7 +16,7 @@ pipeline {
                     if ("${APPLY_FLAG}" == "true") {
                         sh "echo apply excute"
                         try {sh "kubectl apply -f ./configserver/configserver-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                        
-                        try {sh "kubectl apply -f ./yaeureka/eureka-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                        
+                        try {sh "kubectl apply -f ./eurekaserver/eureka-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                        
                         try {sh "kubectl apply -f ./gatewayserver/gatewayserver-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                        
                         try {sh "kubectl apply -f ./accounts/accounts-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                        
                         try {sh "kubectl apply -f ./loans/loans-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                      
@@ -28,12 +28,12 @@ pipeline {
                         try {sh "kubectl apply -f ./sample/sample-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                         try {sh "kubectl apply -f ./prometheus/prometheus-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                         try {sh "kubectl apply -f ./zipkin/zipkin-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
-                        try {sh "kubectl apply -f ./jaeger/jaeger-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                        try {sh "kubectl apply -f ./jaeger/jaeger-all-in-one-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                         try {sh "kubectl apply -f ./grafana/grafana-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                     } else{
                         sh "echo delete excute"
                         try {sh "kubectl delete -f ./configserver/configserver-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                        
-                        try {sh "kubectl delete -f ./yaeureka/eureka-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                        
+                        try {sh "kubectl delete -f ./eurekaserver/eureka-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                        
                         try {sh "kubectl delete -f ./gatewayserver/gatewayserver-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                        
                         try {sh "kubectl delete -f ./accounts/accounts-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                        
                         try {sh "kubectl delete -f ./loans/loans-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}                      
@@ -45,7 +45,7 @@ pipeline {
                         try {sh "kubectl delete -f ./sample/sample-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                         try {sh "kubectl delete -f ./prometheus/prometheus-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                         try {sh "kubectl delete -f ./zipkin/zipkin-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
-                        try {sh "kubectl delete -f ./jaeger/jaeger-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
+                        try {sh "kubectl delete -f ./jaeger/jaeger-all-in-one-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                         try {sh "kubectl delete -f ./grafana/grafana-deploy.yml -n ${NAMESPACE}"} catch (e) {catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){ sh "exit 0"}}
                     }
                 }
